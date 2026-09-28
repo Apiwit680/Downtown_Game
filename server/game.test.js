@@ -1,4 +1,4 @@
-import test from 'node:test';
+﻿import test from 'node:test';
 import assert from 'node:assert/strict';
 import { loadData } from './data.js';
 import { GameRoom } from './game.js';
@@ -107,7 +107,7 @@ test('sleep is required per representative phase and missed sleep costs 12–18 
   room.act('one', 'end_phase');
   assert.equal(room.phase, 'weekend');
   assert.equal(first.ap, 12);
-  assert.equal(first.stats.health, 68); // no automatic meals; missed sleep loses 4
+  assert.equal(first.stats.health, 0); // no automatic meals; missed sleep loses 4
   room.act('one', 'sleep');
   room.act('one', 'end_phase');
   assert.equal(room.activePlayerId, 'two');
@@ -124,7 +124,7 @@ test('a venue meal explicitly charges food AP and cash once', () => {
   room.act('one', 'activity', { activityId: 'market_fresh_meal' });
   assert.equal(first.ap, afterTravelAp - 3);
   assert.equal(first.cash, 3000 - 220);
-  assert.equal(first.stats.health, 77);
+  assert.equal(first.stats.health, 5);
   room.act('one', 'activity', { activityId: 'market_fresh_meal' });
   assert.equal(first.ap, afterTravelAp - 6);
   assert.equal(first.cash, 3000 - 440);
@@ -201,10 +201,10 @@ test('event on one taxi ride affects only that traveler, including the fare', ()
 test('loan proceeds do not trigger the savings goal, but earned net savings do', () => {
   const room = roomWithTwoPlayers();
   const first = room.activePlayer;
-  first.cash = 149000;
+  first.cash = 152000;
   first.debt = 10000;
   room.applyEffect(first, { cash: 10000 });
-  assert.equal(first.cash - first.debt, 149000);
+  assert.equal(first.cash - first.debt - 3000, 149000);
   assert.equal(room.status, 'playing');
   room.applyEffect(first, { cash: 1000 });
   assert.equal(room.status, 'finished');

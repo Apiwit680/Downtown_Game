@@ -2,10 +2,36 @@ import { randomBytes } from 'node:crypto';
 import { createServer } from 'node:http';
 import { dirname, join, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import fs from 'node:fs';
 import express from 'express';
 import { Server } from 'socket.io';
 import { loadData } from './data.js';
 import { GameRoom } from './game.js';
+
+export const CONFIG = { TURN_MS: 75000, DISCONNECT_MS: 20000 };
+const turnTimers = new Map();
+const disconnectTimers = new Map();
+
+function clearTurnTimer(code) {
+  const t = turnTimers.get(code);
+  if (t?.timer) clearTimeout(t.timer);
+  turnTimers.delete(code);
+}
+
+function startTurnTimer(code, room, sendStatesFn) {
+  clearTurnTimer(code);
+  if (!room || room.finished || room.status !== 'playing') return;
+  const deadline = Date.now() + CONFIG.TURN_MS;
+  const timer = setTimeout(() => {
+    try {
+      const ap = room.activePlayer?.ap ?? 0;
+      if (ap > 0) room.act(room.activePlayer.id, { type: 'end_phase' });
+      else room.completePhase();
+      if (sendStatesFn) sendStatesFn(room);
+    } catch(e) { /* ignore */ }
+  }, CONFIG.TURN_MS);
+  turnTimers.set(code, { timer, deadline });
+}
 
 const projectRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
 const clientDirectory = join(projectRoot, 'client');
@@ -52,12 +78,26 @@ export function createGameServer({ data = loadData() } = {}) {
   });
   app.use(express.static(clientDirectory));
   app.use('/bgm', express.static(join(projectRoot, 'Sound_Background')));
+  
+  app.get('/api/bgm', (_request, response) => {
+    try {
+      const files = fs.readdirSync(join(projectRoot, 'Sound_Background'));
+      const bgmFiles = files.filter(f => f.match(/\.(mp3|ogg|wav)$/i)).sort();
+      response.json(bgmFiles);
+    } catch (err) {
+      response.json([]);
+    }
+  });
 
   function sendStates(room) {
+    const t = turnTimers.get(room.code);
     for (const player of room.players) {
       const socketId = playerSockets.get(sessionKey(room.code, player.id));
       const socket = socketId && io.sockets.sockets.get(socketId);
-      if (socket?.connected) socket.emit('game:state', room.viewFor(player.id));
+      if (socket?.connected) {
+        socket.emit('game:state', room.viewFor(player.id));
+        if (t?.deadline) socket.emit('game:timer', { turnDeadline: t.deadline });
+      }
     }
   }
 
@@ -87,6 +127,10 @@ export function createGameServer({ data = loadData() } = {}) {
       playerSockets.set(key, socket.id);
       player.connected = true;
       socket.join(room.code);
+
+      const dKey = sessionKey(room.code, player.id);
+      const dt = disconnectTimers.get(dKey);
+      if (dt) { clearTimeout(dt); disconnectTimers.delete(dKey); }
     }
 
     function handle(eventName, action) {
@@ -94,7 +138,10 @@ export function createGameServer({ data = loadData() } = {}) {
         const ack = typeof acknowledgement === 'function' ? acknowledgement : () => {};
         try {
           const { room, reply = {} } = action(objectPayload(incoming));
-          if (room) sendStates(room);
+          if (room) {
+            sendStates(room);
+            startTurnTimer(room.code, room, sendStates);
+          }
           ack({ ok: true, ...reply });
         } catch (error) {
           ack({ ok: false, error: error instanceof Error ? error.message : 'Request failed' });
@@ -142,14 +189,14 @@ export function createGameServer({ data = loadData() } = {}) {
       if (room.status === 'finished') {
         const player = room.players.find(p=>p.id===playerId); player.departed=true; player.connected=false;
         sessions.delete(socket.id); playerSockets.delete(sessionKey(room.code,playerId)); socket.leave(room.code);
-        if (room.players.every(p=>p.departed)) rooms.delete(room.code);
+        if (room.players.every(p=>p.departed)) { room.clearTimers(); room.clearTimers(); rooms.delete(room.code); }
         return { room: rooms.has(room.code) ? room : null, reply: {closed:false} };
       }
       if (room.status !== 'lobby') throw new Error('ออกจากห้องรอได้ก่อนเริ่มเกมเท่านั้น');
       const player = room.players.find((item) => item.id === playerId);
       if (player.host) {
         // Explicit cancellation invalidates every saved session for this lobby.
-        rooms.delete(room.code);
+        room.clearTimers(); rooms.delete(room.code);
         for (const member of room.players) {
           const key = sessionKey(room.code, member.id);
           const socketId = playerSockets.get(key);
@@ -192,10 +239,7 @@ export function createGameServer({ data = loadData() } = {}) {
       if (!player) throw new Error('ไม่พบผู้เล่น');
       player.surrendered = true;
       room.say(`${player.name} ยอมแพ้ต่อชีวิตอันน่ารันทด`);
-      const active = room.players.filter(p => !p.surrendered && !p.departed);
-      if (active.length <= 1 || room.singlePlayer) {
-        room.finish(active[0]?.id || null);
-      }
+      room.removeSurrenderedPlayer(playerId);
       return { room };
     });
 
@@ -219,7 +263,19 @@ export function createGameServer({ data = loadData() } = {}) {
       if (playerSockets.get(key) !== socket.id) return;
       playerSockets.delete(key);
       const player = room.players.find((item) => item.id === session.playerId);
-      if (player) player.connected = false;
+      if (room.handleDisconnect) room.handleDisconnect(session.playerId);
+      else if (player) {
+        player.connected = false;
+        const dKey = sessionKey(session.code, session.playerId);
+        disconnectTimers.set(dKey, setTimeout(() => {
+          disconnectTimers.delete(dKey);
+          try {
+            if (room && !room.finished && room.activePlayer?.id === session.playerId) {
+              room.completePhase(); sendStates(room);
+            }
+          } catch(e) {}
+        }, CONFIG.DISCONNECT_MS));
+      }
       sendStates(room);
     });
   });

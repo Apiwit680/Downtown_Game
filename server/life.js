@@ -1,4 +1,4 @@
-// Review 02 life systems. All actions are checked by GameRoom before mutation.
+﻿// Review 02 life systems. All actions are checked by GameRoom before mutation.
 const clamp = n => Math.max(0, Math.min(100, n));
 const round = n => Math.round((n + Number.EPSILON) * 100) / 100;
 export const lifeMethods = {
@@ -71,7 +71,7 @@ export const lifeMethods = {
     this.checkGoal(player);
     for (const text of player.phaseNotices) this.say(text);
     this.present(player, 'begin_phase', before, { week: this.week, phase: this.phase, drawnCount: 0, phaseNotices: [...player.phaseNotices], moneyLoss: player.phaseEventLoss?.cash || 0,
-      applicationResults: [...player.applicationResults] });
+      applicationResults: [...player.applicationResults] }); this.startTurnTimer();
   },
   vocationalPath(player) {
     return player.education.universityEntryTrack === 'vocational' || player.education.track === 'vocational' || ['vocational', 'diploma'].includes(player.education.level);
@@ -154,6 +154,8 @@ export const lifeMethods = {
     player.stats.happiness = clamp(round(player.stats.happiness - job.happinessDrain));
     if (kind === 'main') player.workedMainWeek = true;
     else player.workedParttimeWeek = true;
+    player.jobWorkCounts = player.jobWorkCounts || {};
+    player.jobWorkCounts[job.id] = (player.jobWorkCounts[job.id] || 0) + 1;
     this.say(`${player.name} Working: ${job.name} · +฿${pay} · 1 AP`);
   },
   recipeStatus(player, recipe) {
@@ -171,7 +173,14 @@ export const lifeMethods = {
     const life = this.data.life;
     for (const [kind, jobId] of [['main', player.mainJobId], ['parttime', player.parttimeJobId]]) {
       const job = this.careerMap.get(jobId);
-      if (job && this.at(player, job.locationId)) add('resign_job', `ลาออก: ${job.name} · เงินชดเชย ฿${Math.round(job.payByPhase.workday * job.originalShift.apCost * this.data.balance.resignationRate)}`, { kind }, 'งาน');
+      if (job && this.at(player, job.locationId)) {
+        let label = `ลาออก: ${job.name} · 1 AP · ไม่มีเงินชดเชย`;
+        if (job.kind === 'main' && (player.jobWorkCounts?.[job.id] >= 1)) {
+          const sev = Math.round(job.payByPhase.workday * job.originalShift.apCost * this.data.balance.resignationRate);
+          label = `ลาออก: ${job.name} · 1 AP · ฿${sev} ชดเชย`;
+        }
+        add('resign_job', label, { kind }, 'งาน');
+      }
     }
     for (const food of life.foods.filter(f => f.locationId === player.locationId)) {
       const ap = food.raw ? life.rawPurchaseAp : life.purchaseAp;
@@ -216,17 +225,28 @@ export const lifeMethods = {
     const life = this.data.life;
     switch (type) {
       case 'resign_job': {
+        if (player.ap < 1) throw new Error('ไม่มี AP เพียงพอสำหรับการลาออก');
         const slot = payload.kind === 'main' ? 'mainJobId' : 'parttimeJobId';
         const job = this.careerMap.get(player[slot]);
-        const severance = Math.round(job.payByPhase.workday * job.originalShift.apCost * this.data.balance.resignationRate);
+        let severance = 0;
+        if (job.kind === 'main' && (player.jobWorkCounts?.[job.id] >= 1)) {
+          severance = Math.round(job.payByPhase.workday * job.originalShift.apCost * this.data.balance.resignationRate);
+        }
         player.cash += severance; player[slot] = null;
         if (payload.kind === 'main') { player.mainMissedConsecutive = 0; player.mainMissedTotal = 0; player.workedMainWeek = false; }
         else { player.parttimeReadyWeek = 0; player.parttimeMissedConsecutive = 0; player.workedParttimeWeek = false; }
-        this.say(`${player.name} ลาออก ${job.name} · ชดเชย 30% ของกะ Workday ${job.originalShift.apCost} AP = ฿${severance}`);
+        player.ap = round(player.ap - 1);
+        if (severance > 0) {
+          this.say(`${player.name} ลาออก ${job.name} · ชดเชย 30% ของกะ Workday ${job.originalShift.apCost} AP = ฿${severance}`);
+        } else {
+          this.say(`${player.name} ลาออก ${job.name} · ไม่มีเงินชดเชย`);
+        }
         return true;
       }
       case 'accept_job': {
         player.mainJobId = payload.jobId;
+        player.jobWorkCounts = player.jobWorkCounts || {};
+        player.jobWorkCounts[payload.jobId] = 0;
         player.offers = [];
         player.mainMissedConsecutive = 0; player.mainMissedTotal = 0; player.workedMainWeek = false;
         this.say(`${player.name} รับงาน ${this.careerMap.get(payload.jobId).name}`);

@@ -1,6 +1,7 @@
 import { randomUUID } from 'node:crypto';
 import { planTrip } from './path.js';
 import { lifeMethods } from './life.js';
+import { CONFIG } from './index.js';
 
 const clamp = (value, low = 0, high = 100) => Math.min(high, Math.max(low, value));
 const round2 = (value) => Math.round((value + Number.EPSILON) * 100) / 100;
@@ -17,7 +18,7 @@ const choose = (items, rng) => {
 };
 
 export class GameRoom {
-  constructor({ code, mode, hostId = randomUUID(), hostName, data, singlePlayer = false, rng = Math.random }) {
+  constructor({ code, mode, hostId = randomUUID(), hostName, data, singlePlayer = false, rng = Math.random, onStateChange = () => {} }) {
     if (!['season', 'marathon'].includes(mode)) throw new Error('Choose Season or Marathon');
     this.code = code;
     this.singlePlayer = singlePlayer;
@@ -25,6 +26,11 @@ export class GameRoom {
     this.mode = mode;
     this.data = data;
     this.rng = rng;
+    this.onStateChange = onStateChange;
+    this.turnTimer = null;
+    this.disconnectTimer = null;
+    this.turnTimerExpiry = null;
+    this.disconnectTimerExpiry = null;
     this.status = 'lobby';
     this.week = 1;
     this.maxWeeks = data.balance.maxWeeks[mode];
@@ -56,6 +62,54 @@ export class GameRoom {
   get cardMap() { return new Map(this.data.cards.map((item) => [item.id, item])); }
   get careerMap() { return new Map(this.data.careers.map((item) => [item.id, item])); }
 
+  clearTimers() {
+    if (this.turnTimer) { clearTimeout(this.turnTimer); this.turnTimer = null; }
+    if (this.disconnectTimer) { clearTimeout(this.disconnectTimer); this.disconnectTimer = null; }
+    this.turnTimerExpiry = null;
+    this.disconnectTimerExpiry = null;
+  }
+  startTurnTimer() {
+    this.clearTimers();
+    if (this.status !== 'playing') return;
+    this.turnTimerExpiry = Date.now() + CONFIG.TURN_MS;
+    this.turnTimer = setTimeout(() => {
+      if (this.status === 'playing') {
+        try { this.act(this.activePlayerId, 'end_phase'); } catch (e) {}
+        this.onStateChange();
+      }
+    }, CONFIG.TURN_MS);
+  }
+  handleDisconnect(playerId) {
+    const player = this.players.find(p => p.id === playerId);
+    if (player) player.connected = false;
+    if (this.players.every(p => !p.connected)) {
+      this.clearTimers();
+      return;
+    }
+    if (this.status === 'playing' && this.activePlayerId === playerId) {
+      if (!this.disconnectTimer) {
+        this.disconnectTimerExpiry = Date.now() + CONFIG.DISCONNECT_MS;
+        this.disconnectTimer = setTimeout(() => {
+          if (this.status === 'playing' && this.activePlayerId === playerId) {
+            try { this.act(this.activePlayerId, 'end_phase'); } catch (e) {}
+            this.onStateChange();
+          }
+        }, CONFIG.DISCONNECT_MS);
+      }
+    }
+  }
+  handleReconnect(playerId) {
+    const player = this.players.find(p => p.id === playerId);
+    if (player) player.connected = true;
+    if (this.status === 'playing' && this.activePlayerId === playerId) {
+      if (this.disconnectTimer) {
+        clearTimeout(this.disconnectTimer);
+        this.disconnectTimer = null;
+        this.disconnectTimerExpiry = null;
+      }
+    }
+  }
+
   consumeEventShield(player) {
     if (player.eventShieldNext > 0) {
       player.eventShieldNext -= 1;
@@ -80,6 +134,7 @@ export class GameRoom {
       position: { x: home.x, y: home.y }, locationId: 'home',
       education: { level: 'm3', track: null, credits: 0 },
       experience: 0, mainJobId: null, parttimeJobId: null, parttimeReadyWeek: null,
+      jobWorkCounts: {},
       mainMissedConsecutive: 0, mainMissedTotal: 0, parttimeMissedConsecutive: 0,
       workedMainWeek: false, workedParttimeWeek: false,
       hand: [], passives: [], assets: [], ownsCar: false, partnerToken: false,
@@ -92,6 +147,23 @@ export class GameRoom {
     this.players.push(player);
     this.say(`${safeName} เข้าร่วมเมือง`);
     return player;
+  }
+
+  removeSurrenderedPlayer(playerId) {
+    const idx = this.turnOrder.indexOf(playerId);
+    if (idx === -1) return;
+    const isTurn = idx === this.activeIndex;
+    this.turnOrder.splice(idx, 1);
+    if (idx < this.activeIndex) this.activeIndex--;
+    if (this.activeIndex >= this.turnOrder.length) this.activeIndex = 0;
+    
+    const activeCount = this.players.filter(p => !p.surrendered && !p.departed).length;
+    if (activeCount <= 1 && !this.singlePlayer) {
+      const winner = this.players.find(p => !p.surrendered && !p.departed);
+      this.finish(winner ? winner.id : null);
+    } else if (isTurn) {
+      this.completePhase();
+    }
   }
 
   say(text) {
@@ -265,7 +337,7 @@ export class GameRoom {
   }
 
   score(player) {
-    const netSavings = player.cash - player.debt;
+    const netSavings = player.cash - player.debt - (this.data.balance.startingCapital ?? 3000);
     const knowledge = clamp(player.stats.knowledge);
     const wealth = clamp((netSavings / this.goal) * 100);
     const happiness = clamp(player.stats.happiness);
@@ -297,7 +369,7 @@ export class GameRoom {
   }
 
   checkGoal(player) {
-    if (this.status === 'playing' && player.cash - player.debt >= this.goal) this.finish(player.id);
+    if (this.status === 'playing' && player.cash - player.debt - (this.data.balance.startingCapital ?? 3000) >= this.goal) this.finish(player.id);
   }
 
   applyEffect(player, effect = {}, { event = false, ignoreAp = false, shieldOverride } = {}) {
@@ -334,7 +406,7 @@ export class GameRoom {
     if (player.custody) return this.lifeActions(player);
     actions.push(...this.lifeActions(player));
     if (this.at(player, 'home') && player.ap >= 4) add('sleep', 'นอน 4 AP · ที่อพาร์ตเมนต์');
-    if (this.at(player, 'home') && player.phaseInitialAp < 7 && player.sleepAp < 4) add('emergency_rest', 'พักฉุกเฉิน · ฟื้นจากโทษอดนอน');
+    if (this.at(player, 'home') && player.ap < 4) add('emergency_rest', 'พักฉุกเฉิน · ฟื้นจากโทษอดนอน');
     if (this.at(player, 'home') && player.ap === player.phaseInitialAp && player.sleepAp === 0 && !player.phaseFlags.anyAction && player.phaseInitialAp >= 20) add('full_rest', `Full Rest · พักทั้ง Phase · อาหาร ฿${this.data.balance.basicMealCost} (เงินไม่พอ สุขภาพ -2)`);
     if (this.isOpen(player.locationId)) {
       if (this.at(player, 'school') && player.education.level === 'm3' && !player.education.track) {
@@ -365,8 +437,8 @@ export class GameRoom {
       if (this.at(player, 'mall') && player.mallDrawWeek !== this.week && this.canPay(player, 1, this.data.balance.cardDrawCost) && player.hand.length < this.handLimit && this.hasDrawableCard()) {
         add('draw_card', `สุ่มการ์ด · ฿${this.data.balance.cardDrawCost}`);
       }
-      if (this.at(player, 'automotive') && !player.ownsCar && this.canPay(player, 1, this.data.balance.carPrice)) {
-        add('buy_car', `ซื้อรถ · ฿${this.data.balance.carPrice}`);
+      if (this.at(player, 'automotive') && (!player.ownsCar || player.usedCar) && this.canPay(player, 1, this.data.balance.carPrice)) {
+        add('buy_car', player.usedCar ? `เทิร์นรถมือสอง ซื้อรถใหม่ · ฿${this.data.balance.carPrice}` : `ซื้อรถ · ฿${this.data.balance.carPrice}`);
       }
       if (this.at(player, 'bank') && player.ap >= 1) {
         for (const asset of (this.data.balance.stockMarket?.assets || [])) {
@@ -447,6 +519,7 @@ export class GameRoom {
         break;
       case 'emergency_rest':
         player.sleepAp = 4;
+        player.hasEaten = true;
         player.ap = 0;
         player.stats.health = clamp(player.stats.health + 2);
         this.say(`${player.name} พักฉุกเฉินและกลับมาฟื้นตัว`);
@@ -467,6 +540,30 @@ export class GameRoom {
         const fullCompleted = this.completePhase();
         this.present(player, type, before, { ...fullCompleted, text: `${player.name} พักเต็ม Phase` });
         return;
+      case 'stock_buy_partner': {
+        const asset = this.data.balance.stockMarket.assets.find(a => a.id === payload.assetId);
+        if (!asset) throw new Error('Unknown asset');
+        const price = this.stockHistory[asset.id].slice(-1)[0];
+        const halfPrice = Math.ceil(price / 2); // odd remainder to initiator
+        const partner = this.players.find(p => p.id === payload.partnerId && !p.surrendered && !p.departed);
+        if (!partner) throw new Error('Partner unavailable');
+        // Find and validate partner invitation card in player's hand
+        const cardIdx = player.hand.findIndex(id => { const c = this.cardMap.get(id); return c?.effect?.partnerToken; });
+        if (cardIdx === -1) throw new Error('No partner invitation card in hand');
+        if (player.cash < halfPrice) throw new Error('Insufficient funds');
+        if (partner.cash < (price - halfPrice)) throw new Error('Partner has insufficient funds');
+        
+        player.cash -= halfPrice;
+        partner.cash -= (price - halfPrice);
+        this.playerStocks[player.id][asset.id] = (this.playerStocks[player.id][asset.id] || 0) + 1;
+        
+        const [partnerCard] = player.hand.splice(cardIdx, 1);
+        this.discard.push(partnerCard);
+        player.partnerToken = false;
+        player.ap = round2(player.ap - 1);
+        this.say(`${player.name} และ ${partner.name} ซื้อหุ้น ${asset.name} แบบหุ้นส่วน · จ่ายคนละ ฿${halfPrice}`);
+        break;
+      }
       case 'stock_buy': {
         const asset = this.data.balance.stockMarket.assets.find(a => a.id === payload.assetId);
         const price = this.stockHistory[asset.id].slice(-1)[0];
@@ -753,10 +850,11 @@ export class GameRoom {
       roomCode: this.code, status: this.status, mode: this.mode, week: this.week, version: this.version, singlePlayer: this.singlePlayer,
       maxWeeks: this.maxWeeks, goal: this.goal, phase: this.phase,
       activePlayerId: this.activePlayerId,
+      turnTimerExpiry: this.turnTimerExpiry, disconnectTimerExpiry: this.disconnectTimerExpiry,
       you: { id: self.id, host: self.host },
       players: this.players.map((player) => ({
         id: player.id, name: player.name, color: player.color,
-        cash: player.cash, debt: player.debt, netSavings: player.cash - player.debt,
+        cash: player.cash, debt: player.debt, netSavings: player.cash - player.debt - (this.data.balance.startingCapital ?? 3000),
         stats: { ...player.stats, wealth: this.score(player).wealth },
         ap: player.ap, position: player.position, locationId: player.locationId,
         education: player.education, experience: player.experience,

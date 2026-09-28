@@ -1,9 +1,10 @@
 {
   "startingCash": 3000,
+  "startingCapital": 3000,
   "startingStats": {
-    "knowledge": 12,
-    "happiness": 65,
-    "health": 72
+    "knowledge": 0,
+    "happiness": 0,
+    "health": 0
   },
   "basicMealCost": 180,
   "basicMealApCost": 3,

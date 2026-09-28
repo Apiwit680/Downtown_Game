@@ -168,3 +168,19 @@ Workday แปดครั้งได้เงิน 3,304 บาท Weekend �
 - เดินทางด้วยรถส่วนตัว: โอกาสเกิดเหตุการณ์เสียเงินลดลงจาก 15% → 6% (ลด ~60%)  
   กฎนี้ใช้ทั้งรถปกติและรถมือสอง
 
+
+## Review 05 Updates
+- 75-second turn timer + auto end-turn. 20-second disconnect grace. Surrendering removes you from turn order immediately.
+- emergency_rest: Resets sleep and hunger penalties; next turn starts with full 24 AP.
+- Resignation: Severance (30% of one Workday shift) paid only for full-time jobs after working at least once. Part-time jobs: no severance. Costs 1 AP.
+- Used car: A used car can be traded in at the automotive shop to buy a new car.
+- Partner stock: Cost and shares split 50/50 (odd baht to initiator). Invitation card consumed on purchase.
+- All stats (Knowledge, Happiness, Health) start at 0. Starting cash of ฿3,000 is seed capital and does not count toward the savings goal.
+
+### Review 05 Updates
+- Turn timer: 75-second turn timer; auto end-turn on expiry. 20-second disconnect grace period before auto-skip.
+- emergency_rest: Resets sleep debt and hunger; next turn begins with full 24 AP. Available only when AP < 4.
+- Resignation: Costs 1 AP. Severance (30% of one shift) paid only for full-time jobs after working at least once. Part-time jobs receive no severance. Cannot resign with 0 AP.
+- Used car: A used car can be traded in at the automotive shop toward a new car purchase.
+- Partner stock: Cost split 50/50 (odd baht to initiator). Invitation card consumed on purchase.
+- Zero stats: All stats (Knowledge, Happiness, Health) start at 0. Starting cash �3,000 is seed capital and does not count toward the savings goal.
