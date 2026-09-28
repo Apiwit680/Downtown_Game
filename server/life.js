@@ -18,6 +18,7 @@ export const lifeMethods = {
     player.phaseEventLoss = null;
     player.pendingEventNotices = [];
     player.pendingEventMoneyLoss = 0;
+    player.doctorExp = 0;
   },
   beginPhase() {
     const player = this.activePlayer, before = this.snapshot(player);
@@ -84,12 +85,26 @@ export const lifeMethods = {
     const degrees = player.education.degrees || {};
     const degreeRank = Math.max(0, ...Object.values(degrees).map(d => ranks[d] || 0));
     const rank = Math.max(ranks[player.education.level] || 0, degreeRank);
-    if (job.requiredFaculty && (ranks[degrees[job.requiredFaculty]] || 0) < ranks[job.requiredEducation]) return false;
+    if (job.requiredFaculty) {
+      if ((ranks[degrees[job.requiredFaculty]] || 0) < ranks[job.requiredEducation]) return false;
+      const trackLock = this.data.balance.educationTrackLock?.[job.requiredFaculty];
+      if (trackLock) {
+        const playerTrack = this.vocationalPath(player) ? 'vocational' : (player.education.universityEntryTrack || player.education.track || 'highschool');
+        if (!trackLock.includes(playerTrack)) return false;
+      }
+    }
+    if (job.requiredDoctorExp) {
+      if ((player.doctorExp || 0) < job.requiredDoctorExp) return false;
+    }
     return rank >= ranks[job.requiredEducation] && player.experience >= job.requiredExperience;
   },
   hiringChance(player, job) {
     const b = this.data.balance.hiring;
-    return Math.min(b.maxChance, b.baseChance + Math.max(0, player.experience - job.requiredExperience) * b.experienceBonus);
+    const competitiveness = job.competitiveness ?? (this.data.balance.careerCompetitiveness?.[job.id] ?? 0);
+    const hasRelevantExp = player.experience >= job.requiredExperience;
+    const noExpPenalty = !hasRelevantExp ? (b.noExperiencePenalty ?? 0.2) : 0;
+    const base = Math.max(0.05, b.baseChance - competitiveness - noExpPenalty);
+    return Math.min(b.maxChance, base + Math.max(0, player.experience - job.requiredExperience) * b.experienceBonus);
   },
   studyStage(player) {
     const { level, track } = player.education;
@@ -134,6 +149,7 @@ export const lifeMethods = {
     player.cash += pay;
     player.ap = round(player.ap - 1);
     player.experience = round(player.experience + job.xpGain);
+    if (job.id === 'doctor') player.doctorExp = round((player.doctorExp || 0) + job.xpGain);
     player.stats.health = clamp(round(player.stats.health - job.healthDrain));
     player.stats.happiness = clamp(round(player.stats.happiness - job.happinessDrain));
     if (kind === 'main') player.workedMainWeek = true;
@@ -149,6 +165,7 @@ export const lifeMethods = {
   lifeActions(player) {
     const out = [], add = (type, label, payload = {}, category = '') => out.push({ type, label, payload, category });
     if (player.custody) return [{ type: 'serve_jail', label: 'พักระหว่างควบคุมตัว · จบ Phase', payload: {}, category: 'ควบคุมตัว' }];
+    // R10: accept_job shown in job_center location panel AND details panel; action itself is location-agnostic
     for (const jobId of player.offers) add('accept_job', `รับข้อเสนอ: ${this.careerMap.get(jobId).name}`, { jobId }, 'ข้อเสนองาน');
     if (!this.isOpen(player.locationId)) return out;
     const life = this.data.life;

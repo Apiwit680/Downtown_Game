@@ -17,16 +17,42 @@ window.DowntownLifeUI = {
     if(location.id==='bank'){
       const section=group('ชำระหนี้'),form=el('form','repayment-form'),label=el('label','','จำนวนเงินชำระ · หนี้คงเหลือ '+money(player.debt)),input=el('input');input.type='number';input.min='1';input.max=String(player.debt);input.step='1';input.required=true;input.name='repayment';input.setAttribute('aria-label','จำนวนเงินชำระหนี้');input.value=String(Math.min(player.debt,player.cash)||'');
       const submit=button('ชำระตามจำนวนที่กรอก · 1 AP','action-button',()=>{},busy||!state.actions.some(a=>a.type==='bank'&&a.payload.operation==='repay'));submit.type='submit';form.append(label,input,submit);form.addEventListener('submit',e=>{e.preventDefault();const value=Number(input.value);if(form.reportValidity()&&Number.isSafeInteger(value)&&value>=1&&value<=player.debt&&value<=player.cash)action('bank',{operation:'repay',amount:value});else {input.setCustomValidity('จำนวนเต็ม 1 ถึงยอดหนี้ และไม่เกินเงินสดที่มี');input.reportValidity();}});input.addEventListener('input',()=>input.setCustomValidity(''));section.append(form);
+      if(state.stockMarket){
+        const sm=state.stockMarket;
+        const smSection=group('ตลาดหลักทรัพย์');
+        for(const asset of sm.assets){
+          const price=(sm.history[asset.id]||[asset.basePrice]).slice(-1)[0];
+          const history=sm.history[asset.id]||[asset.basePrice];
+          const held=(sm.holdings||{})[asset.id]||0;
+          const row=el('div','catalog-item');row.dataset.stock=asset.id;
+          const canvas=document.createElement('canvas');canvas.width=180;canvas.height=50;canvas.style.cssText='width:100%;height:50px;display:block;margin:4px 0;';
+          const ctx=canvas.getContext('2d');if(history.length>1){const min=Math.min(...history),max=Math.max(...history),range=Math.max(1,max-min),w=canvas.width,h=canvas.height;
+            ctx.strokeStyle=held>0?'#4a8a5a':'#9a7a5a';ctx.lineWidth=1.5;ctx.beginPath();history.forEach((v,i)=>{const x=i/(history.length-1)*w,y=h-(v-min)/range*(h-4)-2;i===0?ctx.moveTo(x,y):ctx.lineTo(x,y);});ctx.stroke();
+          }
+          row.append(el('strong','',asset.name),canvas,el('small','',`ราคา: ฿${amount(price)} · ความเสี่ยง Lv.${asset.riskLevel}${asset.passiveIncome?` · ปันผล ฿${asset.passiveIncome}/สัปดาห์`:''}${held>0?` · ถือ ${held} หุ้น`:''}`),el('small','',asset.description));
+          if(player.cash>=price)row.append(command(`ซื้อคนเดียว ฿${amount(price)}`,'stock_buy',{assetId:asset.id,mode:'solo'}));
+          if(player.partnerToken)row.append(command('ซื้อแบบหุ้นส่วน','stock_buy_partner',{assetId:asset.id}));
+          if(held>0)row.append(command(`ขาย ฿${amount(price)}`,'stock_sell',{assetId:asset.id}));
+          smSection.append(row);
+        }
+      }
     }
     if(location.id==='job_center'){
       for(const workplace of state.map.locations){const jobs=state.catalog.careers.filter(j=>j.locationId===workplace.id);if(!jobs.length)continue;const section=group(workplace.name);
         for(const kind of ['parttime','main']){const list=jobs.filter(j=>j.kind===kind);if(!list.length)continue;section.append(el('h4','',kind==='main'?'Full time · Resume':'Part time'));
-          for(const job of list){const row=el('div','catalog-item');row.dataset.job=job.id;row.append(el('strong','',job.name),el('small','',`${job.requiredEducation}${job.requiredFaculty?' · '+job.requiredFaculty:''} · ประสบการณ์ ${job.requiredExperience}`),el('small','',`Workday ${money(job.payByPhase.workday)} / Weekend ${money(job.payByPhase.weekend)} ต่อ 1 AP`));
+          for(const job of list){const row=el('div','catalog-item');row.dataset.job=job.id;
+            const matchPay=state.matchSalaries?.[job.id];
+            row.append(el('strong','',job.name),el('small','',`${job.requiredEducation}${job.requiredFaculty?' · '+job.requiredFaculty:''} · ประสบการณ์ ${job.requiredExperience}`),el('small','',`${matchPay?`ที่นี่: ฿${amount(matchPay.workday)}/WD · ฿${amount(matchPay.weekend)}/WE |`:''} ทั่วไป: ${money(job.payByPhase.workday)} ต่อ 1 AP`));
             const pending=state.applications.some(a=>a.jobId===job.id),offer=state.offers.includes(job.id);
             if(offer)row.append(offerPay(job));row.append(command(pending?'รอผล Turn ถัดไป':offer?'รับข้อเสนองาน':kind==='main'?'ส่ง Resume':'สมัครพาร์ตไทม์',offer?'accept_job':'apply_job',{jobId:job.id}));
             if(!available('apply_job',{jobId:job.id})&&!offer&&!pending)row.append(el('small','','ตรวจวุฒิ ประสบการณ์ งานที่ถืออยู่ และ AP'));section.append(row);
           }
         }
+      }
+      if(state.catalog.careers.find(j=>j.id==='doctor')&&state.catalog.careers.find(j=>j.id==='medical_lecturer')){
+        const lectJob=state.catalog.careers.find(j=>j.id==='medical_lecturer');
+        const isDoctor=state.me?.mainJobId==='doctor'||player.mainJobId==='doctor';
+        if(isDoctor){const section=group('ตำแหน่งพิเศษ');section.append(command('สมัครเป็นอาจารย์แพทย์','apply_job',{jobId:'medical_lecturer'}));}
       }
     }
     if(location.id==='university'){
@@ -54,6 +80,18 @@ window.DowntownLifeUI = {
       const doSalvage=button('ย่อยการ์ดที่เลือก','action-button',()=>action('salvage',{indices:[...chosen].sort((a,b)=>a-b)}),true);
       state.hand.forEach((card,index)=>{const label=el('label','salvage-option'),check=el('input');check.type='checkbox';check.dataset.index=index;check.addEventListener('change',()=>{check.checked?chosen.add(index):chosen.delete(index);const payload={indices:[...chosen].sort((a,b)=>a-b)};doSalvage.disabled=busy||!available('salvage',payload);doSalvage.textContent=chosen.size===3?'ย่อย 3 ใบ · +0.5 AP และเงินเล็กน้อย':'ย่อย 1 ใบ · +0.5 AP';});label.append(check,el('span','',card.name));controls.append(label);});section.append(controls,doSalvage);
     }
-    for(const jobId of state.offers){const job=state.catalog.careers.find(j=>j.id===jobId),row=el('div','job-offer');row.append(el('h3','',job.name),offerPay(job),command('รับงาน '+job.name,'accept_job',{jobId}));content.append(row);}
+    if(location.id!=='home'){
+      for(const jobId of state.offers){const job=state.catalog.careers.find(j=>j.id===jobId),row=el('div','job-offer');row.append(el('h3','',job.name),offerPay(job),command('รับงาน '+job.name,'accept_job',{jobId}));content.append(row);}
+    }
+    const myJobs=[player.mainJobId,player.parttimeJobId].filter(Boolean).map(id=>state.catalog.careers.find(j=>j.id===id)).filter(j=>j&&j.locationId===location.id);
+    for(const job of myJobs){
+      let step=0;
+      const resignBtn=button('ลาออก '+job.name,'action-button exit-button',()=>{
+        if(step===0){step=1;resignBtn.textContent='ยืนยันการลาออก (กดอีกครั้ง)';resignBtn.style.background='#c0392b';resignBtn.style.color='#fff';}
+        else{action('resign_job',{kind:job.id===player.mainJobId?'main':'parttime'});step=0;}
+      },busy||!available('resign_job',{kind:job.id===player.mainJobId?'main':'parttime'}));
+      resignBtn.style.borderColor='#c0392b';resignBtn.style.color='#c0392b';
+      content.append(resignBtn);
+    }
   }
 };

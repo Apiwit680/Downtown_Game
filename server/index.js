@@ -51,6 +51,7 @@ export function createGameServer({ data = loadData() } = {}) {
     response.json({ ok: true, rooms: rooms.size, uptimeSeconds: Math.floor(process.uptime()) });
   });
   app.use(express.static(clientDirectory));
+  app.use('/bgm', express.static(join(projectRoot, 'Sound_Background')));
 
   function sendStates(room) {
     for (const player of room.players) {
@@ -181,6 +182,20 @@ export function createGameServer({ data = loadData() } = {}) {
       if (expectedVersion !== room.version) throw new Error('State changed; use the latest action');
       if (typeof type !== 'string') throw new Error('Invalid action');
       room.act(playerId, type, objectPayload(payload));
+      return { room };
+    });
+
+    handle('game:surrender', () => {
+      const { room, playerId } = currentSession();
+      if (room.status !== 'playing') throw new Error('ยอมแพ้ได้เฉพาะระหว่างเกม');
+      const player = room.players.find(p => p.id === playerId);
+      if (!player) throw new Error('ไม่พบผู้เล่น');
+      player.surrendered = true;
+      room.say(`${player.name} ยอมแพ้ต่อชีวิตอันน่ารันทด`);
+      const active = room.players.filter(p => !p.surrendered && !p.departed);
+      if (active.length <= 1 || room.singlePlayer) {
+        room.finish(active[0]?.id || null);
+      }
       return { room };
     });
 

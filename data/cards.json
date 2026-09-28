@@ -70,7 +70,8 @@
     "effect": {
       "health": 4,
       "happiness": 2
-    }
+    },
+    "lunchboxCard": true
   },
   {
     "id": "asset_market_stall",
@@ -126,7 +127,8 @@
     "description": "ผู้ร่วมลงทุนทั้งสองฝ่ายต้องมีการ์ดชนิดนี้",
     "effect": {
       "partnerToken": 1
-    }
+    },
+    "noUseButton": true
   },
   {
     "id": "recreation_pass",

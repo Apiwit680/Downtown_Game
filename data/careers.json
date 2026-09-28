@@ -783,5 +783,42 @@
     },
     "healthDrain": 0.6,
     "happinessDrain": 0.45
+  },
+  {
+    "id": "doctor",
+    "name": "แพทย์ประจำห้องฉุกเฉิน",
+    "kind": "main",
+    "locationId": "hospital",
+    "requiredEducation": "bachelor",
+    "requiredFaculty": "medical",
+    "requiredExperience": 20,
+    "pay": 1350,
+    "apCost": 1,
+    "xpGain": 0.45,
+    "workPhases": ["workday", "weekend"],
+    "originalShift": { "pay": 18000, "apCost": 8, "xpGain": 4 },
+    "payByPhase": { "workday": 1350, "weekend": 742 },
+    "healthDrain": 0.8,
+    "happinessDrain": 0.6,
+    "competitiveness": 0.4
+  },
+  {
+    "id": "medical_lecturer",
+    "name": "อาจารย์แพทย์",
+    "kind": "main",
+    "locationId": "university",
+    "requiredEducation": "bachelor",
+    "requiredFaculty": "medical",
+    "requiredExperience": 35,
+    "requiredDoctorExp": 15,
+    "pay": 1580,
+    "apCost": 1,
+    "xpGain": 0.5,
+    "workPhases": ["workday", "weekend"],
+    "originalShift": { "pay": 21000, "apCost": 8, "xpGain": 4.5 },
+    "payByPhase": { "workday": 1580, "weekend": 869 },
+    "healthDrain": 0.5,
+    "happinessDrain": 0.3,
+    "competitiveness": 0.45
   }
 ]

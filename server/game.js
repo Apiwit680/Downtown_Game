@@ -171,6 +171,13 @@ export class GameRoom {
     this.startingPlayerId = this.turnOrder[0];
     this.activeIndex = 0;
     this.deck = this.buildDeck();
+    this.matchSalaries = this.buildMatchSalaries();
+    this.stockHistory = {};
+    for (const asset of (this.data.balance.stockMarket?.assets || [])) {
+      this.stockHistory[asset.id] = [asset.basePrice];
+    }
+    this.playerStocks = {};
+    for (const p of this.players) this.playerStocks[p.id] = {};
     this.discard = [];
     for (const playerId of this.turnOrder) {
       const player = this.players.find((item) => item.id === playerId);
@@ -185,7 +192,43 @@ export class GameRoom {
     this.beginPhase();
   }
 
+  buildMatchSalaries() {
+    const range = this.data.balance.salaryRandomization?.rangeFraction ?? 0.30;
+    const salaries = {};
+    const used = new Set();
+    for (const career of this.data.careers) {
+      let mult;
+      let attempts = 0;
+      do {
+        mult = Math.round((1 - range + this.rng() * range * 2) * 100) / 100;
+        attempts++;
+      } while (used.has(mult) && attempts < 20);
+      used.add(mult);
+      salaries[career.id] = {
+        workday: Math.round(career.payByPhase.workday * mult),
+        weekend: Math.round(career.payByPhase.weekend * mult)
+      };
+    }
+    return salaries;
+  }
+
   startGlobalWeek() {
+    if (this.stockHistory) {
+      for (const asset of (this.data.balance.stockMarket?.assets || [])) {
+        const history = this.stockHistory[asset.id];
+        const last = history[history.length - 1];
+        const vol = asset.volatility ?? 0.1;
+        const change = 1 + (this.rng() - 0.5) * 2 * vol;
+        history.push(Math.max(100, Math.round(last * change)));
+      }
+      for (const player of this.players) {
+        const holdings = this.playerStocks?.[player.id] || {};
+        for (const asset of (this.data.balance.stockMarket?.assets || [])) {
+          const qty = holdings[asset.id] || 0;
+          if (qty > 0 && asset.passiveIncome) player.cash += qty * asset.passiveIncome;
+        }
+      }
+    }
     if (this.seasonal) {
       this.seasonal.remaining -= 1;
       if (this.seasonal.remaining <= 0) this.seasonal = null;
@@ -326,6 +369,16 @@ export class GameRoom {
         add('buy_car', `ซื้อรถ · ฿${this.data.balance.carPrice}`);
       }
       if (this.at(player, 'bank') && player.ap >= 1) {
+        for (const asset of (this.data.balance.stockMarket?.assets || [])) {
+          const price = this.stockHistory?.[asset.id]?.slice(-1)[0] ?? asset.basePrice;
+          const hasPartner = player.partnerToken;
+          if (player.cash >= price) {
+            add('stock_buy', `ซื้อ ${asset.name} · ฿${price}`, { assetId: asset.id, mode: 'solo' });
+            if (hasPartner) add('stock_buy_partner', `ซื้อแบบหุ้นส่วน ${asset.name}`, { assetId: asset.id });
+          }
+          const qty = this.playerStocks?.[player.id]?.[asset.id] || 0;
+          if (qty > 0) add('stock_sell', `ขาย ${asset.name} (มี ${qty} หุ้น) · ฿${price}`, { assetId: asset.id });
+        }
         for (const amount of [1000, 5000]) {
           if (player.debt + amount <= (this.data.balance.loanLimit ?? 20000)) add('bank', `กู้ ฿${amount}`, { operation: 'borrow', amount });
         }
@@ -414,6 +467,22 @@ export class GameRoom {
         const fullCompleted = this.completePhase();
         this.present(player, type, before, { ...fullCompleted, text: `${player.name} พักเต็ม Phase` });
         return;
+      case 'stock_buy': {
+        const asset = this.data.balance.stockMarket.assets.find(a => a.id === payload.assetId);
+        const price = this.stockHistory[asset.id].slice(-1)[0];
+        player.cash -= price; player.ap = round2(player.ap - 1);
+        this.playerStocks[player.id][asset.id] = (this.playerStocks[player.id][asset.id] || 0) + 1;
+        this.say(`${player.name} ซื้อหุ้น ${asset.name} · ฿${price}`);
+        break;
+      }
+      case 'stock_sell': {
+        const asset = this.data.balance.stockMarket.assets.find(a => a.id === payload.assetId);
+        const price = this.stockHistory[asset.id].slice(-1)[0];
+        player.cash += price; player.ap = round2(player.ap - 1);
+        this.playerStocks[player.id][asset.id] = Math.max(0, (this.playerStocks[player.id][asset.id] || 0) - 1);
+        this.say(`${player.name} ขายหุ้น ${asset.name} · ฿${price}`);
+        break;
+      }
       case 'choose_track':
         player.education.track = payload.track;
         this.say(`${player.name} เลือก${payload.track === 'vocational' ? 'สายอาชีพ' : 'สายสามัญ'}`);
@@ -507,6 +576,7 @@ export class GameRoom {
     } else {
       this.discard.push(id);
       this.applyEffect(player, card.effect);
+      if (card.lunchboxCard || card.id === 'skill_home_cooking') player.hasEaten = true;
       if (card.effect.drawCount) {
         if (card.effect.discardCount) player.pendingDiscard = { count: card.effect.discardCount, drawCount: card.effect.drawCount, sourceCardId: id };
         else this.drawFromDeck(player, card.effect.drawCount);
@@ -692,10 +762,16 @@ export class GameRoom {
         education: player.education, experience: player.experience,
         mainJobId: player.mainJobId, parttimeJobId: player.parttimeJobId,
         sleepAp: player.sleepAp, hasEaten: player.hasEaten, connected: player.connected,
-        ownsCar: player.ownsCar, usedCar: player.usedCar, phaseNotices: [...player.phaseNotices], equipment: [...player.equipment], custody: player.custody, parttimeReadyWeek: player.parttimeReadyWeek
+        ownsCar: player.ownsCar, usedCar: player.usedCar, phaseNotices: [...player.phaseNotices], equipment: [...player.equipment], custody: player.custody, parttimeReadyWeek: player.parttimeReadyWeek, surrendered: player.surrendered
       })),
       map: this.data.map,
       catalog: { cards: this.data.cards, careers: this.data.careers, activities: this.data.activities, life: this.data.life, study: this.data.balance.study, blackMarket: this.data.balance.blackMarket },
+      matchSalaries: this.matchSalaries,
+      stockMarket: {
+        assets: this.data.balance.stockMarket?.assets || [],
+        history: this.stockHistory || {},
+        holdings: this.playerStocks?.[playerId] || {}
+      },
       inventory: { ...self.inventory }, applications: structuredClone(self.applications), offers: [...self.offers],
       applicationResults: structuredClone(self.applicationResults),
       recipes: this.data.life.recipes.map(r => ({ ...r, ...this.recipeStatus(self,r) })),

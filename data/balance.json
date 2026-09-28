@@ -68,7 +68,7 @@
     "walk": 0.08,
     "bus": 0.25,
     "moto": 0.18,
-    "car": 0.15,
+    "car": 0.06,
     "taxi": 0.25
   },
   "seasonalChanceSeason": 0.14,
@@ -190,7 +190,42 @@
   "hiring": {
     "baseChance": 0.55,
     "experienceBonus": 0.015,
-    "maxChance": 0.95
+    "maxChance": 0.95,
+    "noExperiencePenalty": 0.2
+  },
+  "careerCompetitiveness": {
+    "hospital_nurse": 0.35,
+    "bank_analyst": 0.3,
+    "auto_engineer": 0.3,
+    "mall_manager": 0.25,
+    "school_teacher": 0.25,
+    "university_coordinator": 0.25,
+    "doctor": 0.4,
+    "medical_lecturer": 0.45,
+    "casino_cashier": 0.2
+  },
+  "carEventWeightByTransport": {
+    "personalCar": -0.6
+  },
+  "personalCarEventReduction": 0.60,
+  "educationTrackLock": {
+    "medical": ["highschool"],
+    "engineering": ["highschool", "vocational"],
+    "business": ["highschool"],
+    "liberal_arts": ["highschool"]
+  },
+  "salaryRandomization": {
+    "rangeFraction": 0.30,
+    "seed": true
+  },
+  "stockMarket": {
+    "assets": [
+      { "id": "govt_bond", "name": "พันธบัตรรัฐบาล", "riskLevel": 1, "basePrice": 5000, "volatility": 0.03, "passiveIncome": 150, "description": "ความเสี่ยงต่ำ รายได้ผันผวนน้อย" },
+      { "id": "blue_chip", "name": "หุ้น Blue Chip", "riskLevel": 2, "basePrice": 10000, "volatility": 0.08, "passiveIncome": 0, "description": "หุ้นมั่นคง ราคาขึ้นลงปานกลาง" },
+      { "id": "growth_stock", "name": "หุ้นเติบโต", "riskLevel": 3, "basePrice": 8000, "volatility": 0.15, "passiveIncome": 0, "description": "โอกาสกำไรสูง แต่เสี่ยงขาดทุน" },
+      { "id": "startup_fund", "name": "กองทุน Startup", "riskLevel": 4, "basePrice": 15000, "volatility": 0.25, "passiveIncome": 0, "description": "เสี่ยงสูงมาก อาจได้หรือเสียมาก" },
+      { "id": "reit", "name": "กองทุนอสังหาฯ (REIT)", "riskLevel": 2, "basePrice": 12000, "volatility": 0.06, "passiveIncome": 400, "description": "รายได้ค่าเช่าสม่ำเสมอ ราคาผันผวนน้อย" }
+    ]
   },
   "blackMarket": {
     "entryMin": 10,
