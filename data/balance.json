@@ -1,0 +1,211 @@
+{
+  "startingCash": 3000,
+  "startingStats": {
+    "knowledge": 12,
+    "happiness": 65,
+    "health": 72
+  },
+  "basicMealCost": 180,
+  "basicMealApCost": 3,
+  "basicMealEffect": {
+    "health": 3
+  },
+  "rentPerMonth": 3000,
+  "cardDrawCost": 600,
+  "cardPlayApCost": 1,
+  "loanInterestMonthly": 0.04,
+  "transport": {
+    "walk": {
+      "speed": 4,
+      "baseFare": 0,
+      "perTileFare": 0
+    },
+    "bus": {
+      "speed": 60,
+      "baseFare": 22,
+      "perTileFare": 1
+    },
+    "moto": {
+      "speed": 120,
+      "baseFare": 35,
+      "perTileFare": 6
+    },
+    "car": {
+      "speed": 100,
+      "baseFare": 0,
+      "perTileFare": 1.5
+    },
+    "taxi": {
+      "speed": 100,
+      "baseFare": 45,
+      "perTileFare": 8
+    }
+  },
+  "carPrice": 25000,
+  "study": {
+    "apCost": 1,
+    "tuition": 50,
+    "knowledgeGainPerCredit": 0.35,
+    "credits": {
+      "vocational": 8,
+      "highschool": 8,
+      "diploma": 12,
+      "bachelorVoc": 12,
+      "bachelorGeneral": 24
+    }
+  },
+  "drawLimitPerWeek": 1,
+  "casino": {
+    "apCost": 0.5,
+    "minBet": 200,
+    "maxBet": 8000,
+    "winChance": 0.12,
+    "jackpotMultiplier": 6,
+    "happinessLoss": 3
+  },
+  "personalEventChance": 0.14,
+  "transportEventChanceByMode": {
+    "walk": 0.08,
+    "bus": 0.25,
+    "moto": 0.18,
+    "car": 0.15,
+    "taxi": 0.25
+  },
+  "seasonalChanceSeason": 0.14,
+  "seasonalChanceMarathon": 0.08,
+  "marathonSeasonalGuaranteeWeek": 12,
+  "seasonalDurationCapTurns": {
+    "season": 3,
+    "marathon": 6
+  },
+  "maxWeeks": {
+    "season": 16,
+    "marathon": 96
+  },
+  "exitNetSavingsGoal": {
+    "season": 150000,
+    "marathon": 1000000
+  },
+  "sleep": {
+    "apCost": 4,
+    "healthGain": 3,
+    "happinessGain": 2,
+    "missedHealth": -4,
+    "missedHappiness": -5,
+    "nextPhaseApPenaltyMin": 12,
+    "nextPhaseApPenaltyMax": 18
+  },
+  "fullRest": {
+    "mealAp": 3,
+    "sleepActions": 5,
+    "quietRestAp": 1
+  },
+  "score": {
+    "statMin": 0,
+    "statMax": 100,
+    "wealthFormula": "clamp((cash - debt) / exitNetSavingsGoal[mode] * 100, 0, 100)",
+    "sum": [
+      "knowledge",
+      "wealth",
+      "happiness",
+      "health"
+    ],
+    "tieBreak": [
+      "netSavings",
+      "health",
+      "lobbyOrder"
+    ]
+  },
+  "startingHandSize": 5,
+  "refillToHandSize": 5,
+  "cardHandLimit": 9,
+  "deckSize": {
+    "season": 52,
+    "marathon": 104
+  },
+  "deckComposition": {
+    "season": {
+      "counts": {
+        "skill_overtime": 2,
+        "skill_network": 2,
+        "skill_notes": 2,
+        "skill_exam_luck": 2,
+        "skill_power_nap": 2,
+        "skill_home_cooking": 2,
+        "asset_market_stall": 2,
+        "asset_rental_room": 2,
+        "vehicle_coupon": 2,
+        "vehicle_used_car": 2,
+        "partner_token": 2,
+        "recreation_pass": 2,
+        "counter_claim": 2,
+        "routine_morning": 1,
+        "subscription_music": 1,
+        "subscription_games": 1,
+        "warranty_basic": 1,
+        "warranty_plus": 1,
+        "transit_pass": 1,
+        "work_tools": 1,
+        "library_membership": 1,
+        "microbusiness": 1,
+        "skill_fresh_start": 4,
+        "skill_refocus": 4,
+        "prank_swap": 4,
+        "prank_shuffle": 3,
+        "prank_silly": 2
+      }
+    },
+    "marathon": {
+      "counts": {
+        "skill_overtime": 4,
+        "skill_network": 4,
+        "skill_notes": 4,
+        "skill_exam_luck": 4,
+        "skill_power_nap": 4,
+        "skill_home_cooking": 4,
+        "asset_market_stall": 4,
+        "asset_rental_room": 4,
+        "vehicle_coupon": 4,
+        "vehicle_used_car": 4,
+        "partner_token": 4,
+        "recreation_pass": 4,
+        "counter_claim": 4,
+        "routine_morning": 2,
+        "subscription_music": 2,
+        "subscription_games": 2,
+        "warranty_basic": 2,
+        "warranty_plus": 2,
+        "transit_pass": 2,
+        "work_tools": 2,
+        "library_membership": 2,
+        "microbusiness": 2,
+        "skill_fresh_start": 8,
+        "skill_refocus": 8,
+        "prank_swap": 8,
+        "prank_shuffle": 6,
+        "prank_silly": 4
+      }
+    }
+  },
+  "hiring": {
+    "baseChance": 0.55,
+    "experienceBonus": 0.015,
+    "maxChance": 0.95
+  },
+  "blackMarket": {
+    "entryMin": 10,
+    "entryMax": 30,
+    "tripleCash": 100,
+    "maxSalvagesPerPhase": 3,
+    "arrestChance": 0.15
+  },
+  "usedCar": {
+    "purchaseCost": 8000,
+    "maintenance": 250
+  },
+  "hungerPenalty": {
+    "min": 3,
+    "max": 5
+  },
+  "resignationRate": 0.3
+}

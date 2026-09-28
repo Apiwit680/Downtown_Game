@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" role="img" aria-label="Downtown city gate">
+  <rect x="3" y="3" width="94" height="94" rx="26" fill="#eee5ce"/>
+  <g stroke="#675e62" stroke-width="2.6" stroke-linejoin="round" stroke-linecap="round">
+    <path d="M24 74V28h25c22 0 31 11 31 23S71 74 49 74Z" fill="#a7bfb0"/>
+    <path d="M38 62V39h10c12 0 18 5 18 12s-6 11-18 11Z" fill="#f4edda"/>
+    <path d="M24 74V38M80 51v23M20 74h65" fill="none"/>
+    <path d="M20 29 31 17h25l15 12" fill="#d3ad91"/>
+    <path d="M23 31c11-3 21-2 28-2" stroke="#f5edd8" stroke-width="2" opacity=".65"/>
+    <path d="M45 81h17m-6-5 7 5-7 5" fill="none" stroke="#ad9577"/>
+  </g>
+</svg>

@@ -1,0 +1,318 @@
+[
+  {
+    "id": "skill_overtime",
+    "name": "กะพิเศษสุดสัปดาห์",
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0,
+    "description": "รับค่าจ้างพิเศษ แต่เหนื่อยล้า",
+    "effect": {
+      "cash": 2200,
+      "health": -4
+    }
+  },
+  {
+    "id": "skill_network",
+    "name": "เพื่อนฝากงาน",
+    "kind": "active",
+    "cost": 150,
+    "monthlyFee": 0,
+    "description": "เพิ่มประสบการณ์ทำงาน ช่วยให้สมัครงานได้ดีขึ้น",
+    "effect": {
+      "cash": 1400,
+      "experience": 1
+    }
+  },
+  {
+    "id": "skill_notes",
+    "name": "ประสบการณ์เด็กฝึกงาน",
+    "kind": "active",
+    "cost": 250,
+    "monthlyFee": 0,
+    "description": "เพิ่มประสบการณ์ทำงาน ช่วยให้สมัครงานได้ดีขึ้น",
+    "effect": {
+      "happiness": -1,
+      "experience": 2
+    }
+  },
+  {
+    "id": "skill_exam_luck",
+    "name": "แก้งานจนชำนาญ",
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0,
+    "description": "เพิ่มประสบการณ์ทำงาน ช่วยให้สมัครงานได้ดีขึ้น",
+    "effect": {
+      "happiness": 3,
+      "experience": 2
+    }
+  },
+  {
+    "id": "skill_power_nap",
+    "name": "งีบที่อพาร์ตเมนต์",
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0,
+    "description": "คืนเวลาเล็กน้อยพร้อมความสดชื่น",
+    "effect": {
+      "ap": 1.5,
+      "health": 2
+    },
+    "playAt": "home"
+  },
+  {
+    "id": "skill_home_cooking",
+    "name": "ข้าวกล่องทำเอง",
+    "kind": "active",
+    "cost": 120,
+    "monthlyFee": 0,
+    "description": "ประหยัดและได้กินอาหารดี",
+    "effect": {
+      "health": 4,
+      "happiness": 2
+    }
+  },
+  {
+    "id": "asset_market_stall",
+    "name": "หุ้นร้านเล็กในตลาด",
+    "kind": "active",
+    "cost": 12000,
+    "monthlyFee": 0,
+    "description": "ซื้อส่วนแบ่งร้านค้า รับปันผล 300 บาททุกสิ้น Turn",
+    "effect": {
+      "weeklyIncome": 300
+    }
+  },
+  {
+    "id": "asset_rental_room",
+    "name": "ห้องเช่าขนาดเล็ก",
+    "kind": "active",
+    "cost": 30000,
+    "monthlyFee": 0,
+    "description": "สินทรัพย์อสังหาริมทรัพย์ขนาดย่อม",
+    "effect": {
+      "monthlyIncome": 3500
+    }
+  },
+  {
+    "id": "vehicle_coupon",
+    "name": "คูปองเที่ยวรถ",
+    "kind": "active",
+    "cost": 200,
+    "monthlyFee": 0,
+    "description": "ลดค่าโดยสารครั้งถัดไป",
+    "effect": {
+      "travelDiscount": 0.5
+    }
+  },
+  {
+    "id": "vehicle_used_car",
+    "name": "รถมือสอง (Used Car)",
+    "kind": "active",
+    "cost": 8000,
+    "monthlyFee": 0,
+    "description": "ซื้อรถมือสอง ฿8,000 · 1 AP · ค่าบำรุง ฿250 ทุก Workday เริ่มตาของคุณ หากจ่ายไม่ได้รถเสียและเสียสิทธิ์ใช้รถ",
+    "effect": {
+      "carOwnership": 1,
+      "usedCar": 1
+    }
+  },
+  {
+    "id": "partner_token",
+    "name": "คำชวนเป็นหุ้นส่วน",
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0,
+    "description": "ผู้ร่วมลงทุนทั้งสองฝ่ายต้องมีการ์ดชนิดนี้",
+    "effect": {
+      "partnerToken": 1
+    }
+  },
+  {
+    "id": "recreation_pass",
+    "name": "บัตรกิจกรรมพักผ่อน",
+    "kind": "active",
+    "cost": 450,
+    "monthlyFee": 0,
+    "description": "ใช้ที่สถานที่พักผ่อนเพื่อฟื้นใจ",
+    "effect": {
+      "happiness": 8,
+      "health": 2
+    },
+    "playAt": "ticket_venue"
+  },
+  {
+    "id": "counter_claim",
+    "name": "เคลมประกันทันเวลา",
+    "kind": "active",
+    "cost": 300,
+    "monthlyFee": 0,
+    "description": "กันผลเสียของเหตุการณ์ครั้งถัดไป",
+    "effect": {
+      "eventShield": 1
+    }
+  },
+  {
+    "id": "routine_morning",
+    "name": "ตารางชีวิตเช้า",
+    "kind": "passive",
+    "cost": 300,
+    "monthlyFee": 350,
+    "description": "ปรับจังหวะชีวิตและพักผ่อนต่อเนื่อง",
+    "effect": {
+      "health": 2,
+      "happiness": 1
+    }
+  },
+  {
+    "id": "subscription_music",
+    "name": "สมาชิกเพลงและหนัง",
+    "kind": "passive",
+    "cost": 200,
+    "monthlyFee": 500,
+    "description": "บริการบันเทิงรายเดือน",
+    "effect": {
+      "happiness": 4
+    }
+  },
+  {
+    "id": "subscription_games",
+    "name": "สมาชิกเกมและสตรีม",
+    "kind": "passive",
+    "cost": 250,
+    "monthlyFee": 800,
+    "description": "ความบันเทิงที่เพิ่มความสุขมากกว่า",
+    "effect": {
+      "happiness": 6
+    }
+  },
+  {
+    "id": "warranty_basic",
+    "name": "ประกันของใช้พื้นฐาน",
+    "kind": "passive",
+    "cost": 400,
+    "monthlyFee": 600,
+    "description": "ลดความเสียหายจากเหตุการณ์ร้าย",
+    "effect": {
+      "eventShield": 0.35
+    }
+  },
+  {
+    "id": "warranty_plus",
+    "name": "ประกันของใช้แบบเต็ม",
+    "kind": "passive",
+    "cost": 900,
+    "monthlyFee": 1250,
+    "description": "ความคุ้มครองสูงขึ้นด้วยค่าต่ออายุที่แพงกว่า",
+    "effect": {
+      "eventShield": 0.7
+    }
+  },
+  {
+    "id": "transit_pass",
+    "name": "บัตรเดินทางรายเดือน",
+    "kind": "passive",
+    "cost": 250,
+    "monthlyFee": 750,
+    "description": "ลดค่าโดยสารรถสาธารณะ",
+    "effect": {
+      "travelDiscount": 0.3
+    }
+  },
+  {
+    "id": "work_tools",
+    "name": "เครื่องมือทำงาน",
+    "kind": "passive",
+    "cost": 700,
+    "monthlyFee": 650,
+    "description": "รายได้จากงานเพิ่มเล็กน้อย",
+    "effect": {
+      "workBonus": 0.05
+    }
+  },
+  {
+    "id": "library_membership",
+    "name": "สมาชิกห้องสมุด",
+    "kind": "passive",
+    "cost": 250,
+    "monthlyFee": 450,
+    "description": "ช่วยเพิ่มผลจากการเรียน",
+    "effect": {
+      "studyBonus": 0.1
+    }
+  },
+  {
+    "id": "microbusiness",
+    "name": "ร้านออนไลน์ขนาดจิ๋ว",
+    "kind": "passive",
+    "cost": 3500,
+    "monthlyFee": 400,
+    "description": "รับเงินรายเดือนตราบใดที่ยังจ่ายค่าดูแล",
+    "effect": {
+      "monthlyIncome": 1200
+    }
+  },
+  {
+    "id": "skill_fresh_start",
+    "name": "เปลี่ยนแผนใหม่",
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0,
+    "description": "เลือกทิ้งการ์ด 1 ใบ แล้วจั่ว 2 ใบจากกองร่วม",
+    "effect": {
+      "discardCount": 1,
+      "drawCount": 2
+    }
+  },
+  {
+    "id": "skill_refocus",
+    "name": "จัดมือให้เข้าทาง",
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0,
+    "description": "เลือกทิ้งการ์ด 2 ใบ แล้วจั่ว 2 ใบจากกองร่วม",
+    "effect": {
+      "discardCount": 2,
+      "drawCount": 2
+    }
+  },
+  {
+    "id": "prank_swap",
+    "name": "ล้างมือแบบไม่ล้างจาน",
+    "description": "ทิ้ง 1 ใบแล้วจั่ว 2 ใบจากกองร่วม",
+    "effect": {
+      "discardCount": 1,
+      "drawCount": 2,
+      "happiness": 2
+    },
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0
+  },
+  {
+    "id": "prank_shuffle",
+    "name": "กระเป๋าพังแต่แผนปัง",
+    "description": "ทิ้ง 2 ใบแล้วจั่ว 3 ใบจากกองร่วม",
+    "effect": {
+      "discardCount": 2,
+      "drawCount": 3,
+      "happiness": 1
+    },
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0
+  },
+  {
+    "id": "prank_silly",
+    "name": "ประชุมที่น่าจะเป็นอีเมล",
+    "description": "เสียสุขภาพนิดหน่อย แต่ได้ประสบการณ์และเรื่องเล่า",
+    "effect": {
+      "experience": 2,
+      "happiness": 4,
+      "health": -1
+    },
+    "kind": "active",
+    "cost": 0,
+    "monthlyFee": 0
+  }
+]

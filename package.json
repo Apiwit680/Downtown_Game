@@ -1,0 +1,21 @@
+{
+  "name": "downtown-prototype",
+  "version": "0.2.1",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node server/index.js",
+    "test": "node --test server/*.test.js",
+    "check:data": "node server/validate-data.js",
+    "test:ui": "node scripts/ui-smoke.mjs",
+    "test:review02": "node scripts/ui-review02.mjs",
+    "test:phase5": "node scripts/ui-phase5.mjs"
+  },
+  "dependencies": {
+    "express": "^5.2.1",
+    "socket.io": "^4.8.3"
+  },
+  "devDependencies": {
+    "socket.io-client": "^4.8.3"
+  }
+}

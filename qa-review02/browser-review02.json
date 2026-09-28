@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "checks": [
+    "R01–R07 solo start, keyboard/mouse left deck, one token, 24 AP",
+    "DECK genuine card play and Weekend refill, phase reset and Turn 2",
+    "R08–R10 all market/store rows, raw purchase and ready eating",
+    "R25–R26 appliances graphics, disabled recipes, actual cooking and 1 AP eating",
+    "R13–R15 faculty paths, credential prerequisite and repeated study",
+    "R11–R17 grouped applications, delayed offers, acceptance and repeat Working icon",
+    "R21 actual arrival without service loses both stats; selected 3-card salvage gives 0.5 AP + small cash",
+    "R24 repeated bets beyond old cap and visible Happiness loss",
+    "R21 genuine arrest, two custody phases and release without softlock",
+    "responsive layouts, no horizontal overflow and reconnect inventory persistence",
+    "R22 genuine goal-winning action, Go to lobby, cleared session and refresh",
+    "Marathon 104 cards, 6 participants (one browser + five sockets), real full round advances to Turn 2"
+  ],
+  "browserErrors": [],
+  "artifacts": "C:\\Users\\User\\AppData\\Local\\Temp\\downtown-review02-1790530015116",
+  "fixtures": "Isolated server: credential/progress/cash/location setup and conserving card swaps; actual UI actions asserted. Travel randomness suppressed except independently tested entry loss; no human fun approval."
+}

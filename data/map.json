@@ -1,0 +1,915 @@
+{
+  "width": 40,
+  "height": 28,
+  "tileMeters": 250,
+  "zones": [
+    {
+      "id": "education",
+      "name": "ย่านมหาวิทยาลัย",
+      "bounds": [
+        0,
+        0,
+        20,
+        10
+      ]
+    },
+    {
+      "id": "civic",
+      "name": "ย่านศูนย์กลางเมือง",
+      "bounds": [
+        21,
+        0,
+        39,
+        10
+      ]
+    },
+    {
+      "id": "local_market",
+      "name": "ตลาดริมคลอง",
+      "bounds": [
+        0,
+        11,
+        14,
+        20
+      ]
+    },
+    {
+      "id": "business",
+      "name": "ย่านการค้า",
+      "bounds": [
+        15,
+        11,
+        39,
+        18
+      ]
+    },
+    {
+      "id": "residential",
+      "name": "ชุมชนริมน้ำ",
+      "bounds": [
+        0,
+        21,
+        17,
+        27
+      ]
+    },
+    {
+      "id": "leisure",
+      "name": "ย่านสวนและแสงสี",
+      "bounds": [
+        18,
+        19,
+        39,
+        27
+      ]
+    }
+  ],
+  "roads": [
+    [
+      4,
+      25,
+      4,
+      21
+    ],
+    [
+      4,
+      21,
+      6,
+      21
+    ],
+    [
+      6,
+      21,
+      6,
+      13
+    ],
+    [
+      6,
+      13,
+      3,
+      13
+    ],
+    [
+      3,
+      13,
+      3,
+      8
+    ],
+    [
+      3,
+      8,
+      6,
+      8
+    ],
+    [
+      6,
+      8,
+      6,
+      4
+    ],
+    [
+      4,
+      25,
+      12,
+      25
+    ],
+    [
+      12,
+      25,
+      12,
+      23
+    ],
+    [
+      12,
+      23,
+      18,
+      23
+    ],
+    [
+      18,
+      23,
+      18,
+      21
+    ],
+    [
+      18,
+      21,
+      25,
+      21
+    ],
+    [
+      25,
+      21,
+      25,
+      25
+    ],
+    [
+      25,
+      25,
+      36,
+      25
+    ],
+    [
+      6,
+      8,
+      8,
+      8
+    ],
+    [
+      8,
+      8,
+      8,
+      10
+    ],
+    [
+      8,
+      10,
+      15,
+      10
+    ],
+    [
+      15,
+      10,
+      15,
+      5
+    ],
+    [
+      15,
+      5,
+      21,
+      5
+    ],
+    [
+      21,
+      5,
+      21,
+      3
+    ],
+    [
+      21,
+      3,
+      35,
+      3
+    ],
+    [
+      35,
+      3,
+      35,
+      8
+    ],
+    [
+      35,
+      8,
+      38,
+      8
+    ],
+    [
+      38,
+      1,
+      38,
+      25
+    ],
+    [
+      6,
+      17,
+      8,
+      17
+    ],
+    [
+      8,
+      17,
+      8,
+      21
+    ],
+    [
+      8,
+      21,
+      18,
+      21
+    ],
+    [
+      6,
+      13,
+      7,
+      13
+    ],
+    [
+      7,
+      13,
+      7,
+      10
+    ],
+    [
+      7,
+      10,
+      15,
+      10
+    ],
+    [
+      15,
+      10,
+      15,
+      14
+    ],
+    [
+      15,
+      14,
+      22,
+      14
+    ],
+    [
+      22,
+      14,
+      22,
+      10
+    ],
+    [
+      22,
+      10,
+      28,
+      10
+    ],
+    [
+      28,
+      10,
+      28,
+      14
+    ],
+    [
+      28,
+      14,
+      33,
+      14
+    ],
+    [
+      33,
+      14,
+      33,
+      18
+    ],
+    [
+      33,
+      18,
+      38,
+      18
+    ],
+    [
+      22,
+      14,
+      22,
+      19
+    ],
+    [
+      22,
+      19,
+      25,
+      19
+    ],
+    [
+      25,
+      19,
+      25,
+      21
+    ],
+    [
+      15,
+      14,
+      15,
+      18
+    ],
+    [
+      15,
+      18,
+      18,
+      18
+    ],
+    [
+      18,
+      18,
+      18,
+      21
+    ],
+    [
+      28,
+      10,
+      28,
+      3
+    ],
+    [
+      33,
+      14,
+      33,
+      9
+    ],
+    [
+      33,
+      9,
+      35,
+      9
+    ],
+    [
+      35,
+      9,
+      35,
+      8
+    ],
+    [
+      33,
+      18,
+      30,
+      18
+    ],
+    [
+      30,
+      18,
+      30,
+      21
+    ],
+    [
+      30,
+      21,
+      25,
+      21
+    ],
+    [
+      30,
+      21,
+      30,
+      25
+    ],
+    [
+      18,
+      18,
+      22,
+      18
+    ],
+    [
+      12,
+      23,
+      12,
+      21
+    ],
+    [
+      22,
+      10,
+      22,
+      7
+    ],
+    [
+      22,
+      7,
+      25,
+      7
+    ],
+    [
+      25,
+      7,
+      25,
+      3
+    ],
+    [
+      8,
+      17,
+      12,
+      17
+    ],
+    [
+      18,
+      13,
+      20,
+      13
+    ]
+  ],
+  "locations": [
+    {
+      "id": "home",
+      "name": "อพาร์ตเมนต์",
+      "zone": "residential",
+      "x": 4,
+      "y": 25,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "sleep",
+        "rest",
+        "eat",
+        "manageHome"
+      ],
+      "iconKey": "home"
+    },
+    {
+      "id": "condo",
+      "name": "คอนโด",
+      "zone": "business",
+      "x": 20,
+      "y": 13,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "sleep",
+        "rest",
+        "eat",
+        "upgradeHome"
+      ],
+      "iconKey": "condo"
+    },
+    {
+      "id": "school",
+      "name": "โรงเรียนสามัญและสายช่าง",
+      "zone": "education",
+      "x": 6,
+      "y": 4,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "study",
+        "work"
+      ],
+      "iconKey": "school"
+    },
+    {
+      "id": "university",
+      "name": "มหาวิทยาลัยภาคปกติและภาคต่อเนื่อง",
+      "zone": "education",
+      "x": 15,
+      "y": 5,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "study",
+        "work"
+      ],
+      "iconKey": "university"
+    },
+    {
+      "id": "hospital",
+      "name": "โรงพยาบาล",
+      "zone": "civic",
+      "x": 35,
+      "y": 3,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "heal",
+        "work"
+      ],
+      "iconKey": "hospital"
+    },
+    {
+      "id": "bank",
+      "name": "ธนาคารและตลาดอสังหาริมทรัพย์",
+      "zone": "civic",
+      "x": 28,
+      "y": 3,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "bank",
+        "invest",
+        "borrow",
+        "work"
+      ],
+      "iconKey": "bank"
+    },
+    {
+      "id": "market",
+      "name": "ตลาดชุมชน · ตลาดเช้า",
+      "zone": "local_market",
+      "x": 6,
+      "y": 17,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "eat_special",
+        "work"
+      ],
+      "iconKey": "market"
+    },
+    {
+      "id": "convenience",
+      "name": "เซเว่น",
+      "zone": "local_market",
+      "x": 3,
+      "y": 13,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "eat_special",
+        "work"
+      ],
+      "iconKey": "convenience"
+    },
+    {
+      "id": "job_center",
+      "name": "สำนักงานจัดหางาน",
+      "zone": "business",
+      "x": 22,
+      "y": 10,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "apply_job"
+      ],
+      "iconKey": "job_center"
+    },
+    {
+      "id": "mall",
+      "name": "ห้างสรรพสินค้า",
+      "zone": "business",
+      "x": 22,
+      "y": 14,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "draw_card",
+        "work"
+      ],
+      "iconKey": "mall"
+    },
+    {
+      "id": "restaurant",
+      "name": "ร้านอาหารสุขภาพ",
+      "zone": "business",
+      "x": 33,
+      "y": 14,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "eat_special",
+        "work"
+      ],
+      "iconKey": "restaurant"
+    },
+    {
+      "id": "fitness",
+      "name": "ฟิตเนส",
+      "zone": "business",
+      "x": 38,
+      "y": 8,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "exercise",
+        "work"
+      ],
+      "iconKey": "fitness"
+    },
+    {
+      "id": "automotive",
+      "name": "ศูนย์เทคโนโลยียานยนต์",
+      "zone": "business",
+      "x": 38,
+      "y": 18,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "buy_car",
+        "work"
+      ],
+      "iconKey": "automotive"
+    },
+    {
+      "id": "ticket_venue",
+      "name": "จุดขายตั๋วและสถานที่พักผ่อน",
+      "zone": "leisure",
+      "x": 18,
+      "y": 21,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "recreate",
+        "work"
+      ],
+      "iconKey": "ticket_venue"
+    },
+    {
+      "id": "hangout",
+      "name": "ร้าน Hang out",
+      "zone": "leisure",
+      "x": 30,
+      "y": 21,
+      "openPhases": [
+        "weekend"
+      ],
+      "actions": [
+        "hangout",
+        "work"
+      ],
+      "iconKey": "hangout"
+    },
+    {
+      "id": "casino",
+      "name": "กาสิโน",
+      "zone": "leisure",
+      "x": 36,
+      "y": 25,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "casino",
+        "work"
+      ],
+      "iconKey": "casino"
+    },
+    {
+      "id": "city_exit",
+      "name": "ทางออกเมืองสู่ชนบท",
+      "zone": "civic",
+      "x": 38,
+      "y": 1,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "open24Hours": true,
+      "actions": [
+        "viewGoal"
+      ],
+      "iconKey": "city_exit"
+    },
+    {
+      "id": "black_market",
+      "name": "ตลาดมืด",
+      "zone": "local_market",
+      "x": 12,
+      "y": 17,
+      "openPhases": [
+        "workday",
+        "weekend"
+      ],
+      "actions": [
+        "salvage"
+      ]
+    }
+  ],
+  "busStops": [
+    {
+      "id": "stop_home",
+      "name": "ป้ายอพาร์ตเมนต์",
+      "x": 4,
+      "y": 25
+    },
+    {
+      "id": "stop_school",
+      "name": "ป้ายโรงเรียน",
+      "x": 6,
+      "y": 4
+    },
+    {
+      "id": "stop_university",
+      "name": "ป้ายมหาวิทยาลัย",
+      "x": 15,
+      "y": 5
+    },
+    {
+      "id": "stop_market",
+      "name": "ป้ายตลาด",
+      "x": 6,
+      "y": 17
+    },
+    {
+      "id": "stop_jobs",
+      "name": "ป้ายสำนักงานจัดหางาน",
+      "x": 22,
+      "y": 10
+    },
+    {
+      "id": "stop_hospital",
+      "name": "ป้ายโรงพยาบาล",
+      "x": 35,
+      "y": 3
+    },
+    {
+      "id": "stop_mall",
+      "name": "ป้ายห้าง",
+      "x": 22,
+      "y": 14
+    },
+    {
+      "id": "stop_restaurant",
+      "name": "ป้ายร้านอาหาร",
+      "x": 33,
+      "y": 14
+    },
+    {
+      "id": "stop_leisure",
+      "name": "ป้ายย่านพักผ่อน",
+      "x": 30,
+      "y": 21
+    },
+    {
+      "id": "stop_casino",
+      "name": "ป้ายกาสิโน",
+      "x": 36,
+      "y": 25
+    }
+  ],
+  "busRoutes": [
+    {
+      "id": "red",
+      "name": "สายแดง · บ้าน–การศึกษา–โรงพยาบาล",
+      "stops": [
+        "stop_home",
+        "stop_school",
+        "stop_university",
+        "stop_hospital"
+      ]
+    },
+    {
+      "id": "blue",
+      "name": "สายฟ้า · บ้าน–งาน–ห้าง–บันเทิง",
+      "stops": [
+        "stop_home",
+        "stop_market",
+        "stop_jobs",
+        "stop_mall",
+        "stop_restaurant",
+        "stop_leisure",
+        "stop_casino"
+      ]
+    }
+  ],
+  "exit": {
+    "locationId": "city_exit",
+    "x": 38,
+    "y": 1
+  },
+  "design": {
+    "style": "Bangkok-inspired miniature city",
+    "geography": "เมืองสมมติที่ได้แรงบันดาลใจจากกรุงเทพฯ · ไม่ใช่แผนที่จริง",
+    "deckAnchor": {
+      "x": 17,
+      "y": 17
+    }
+  },
+  "decorative": {
+    "river": {
+      "name": "แม่น้ำเจ้าพระยาจำลอง",
+      "width": 2.4,
+      "points": [
+        {
+          "x": 11,
+          "y": -1
+        },
+        {
+          "x": 10,
+          "y": 5
+        },
+        {
+          "x": 11,
+          "y": 9
+        },
+        {
+          "x": 10,
+          "y": 14
+        },
+        {
+          "x": 11,
+          "y": 19
+        },
+        {
+          "x": 10,
+          "y": 23
+        },
+        {
+          "x": 9,
+          "y": 29
+        }
+      ]
+    },
+    "parks": [
+      {
+        "id": "campus_green",
+        "x": 17,
+        "y": 7,
+        "width": 3,
+        "height": 5
+      },
+      {
+        "id": "city_park",
+        "x": 24,
+        "y": 16,
+        "width": 5,
+        "height": 2
+      },
+      {
+        "id": "riverside_park",
+        "x": 13,
+        "y": 19,
+        "width": 3,
+        "height": 1.5
+      }
+    ],
+    "plazas": [
+      {
+        "x": 24,
+        "y": 12,
+        "radius": 1.4
+      },
+      {
+        "x": 31,
+        "y": 23,
+        "radius": 1.2
+      }
+    ],
+    "landmarks": [
+      {
+        "id": "wat_riverside",
+        "name": "วัดริมคลอง",
+        "x": 4,
+        "y": 10,
+        "kind": "temple"
+      },
+      {
+        "id": "monument",
+        "name": "อนุสาวรีย์กลางเมือง",
+        "x": 24,
+        "y": 12,
+        "kind": "monument"
+      },
+      {
+        "id": "canal_market",
+        "name": "ท่าเรือตลาด",
+        "x": 8.5,
+        "y": 16,
+        "kind": "pier"
+      }
+    ]
+  }
+}

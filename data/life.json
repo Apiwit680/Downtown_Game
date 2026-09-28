@@ -1,0 +1,544 @@
+{
+  "purchaseAp": 0.25,
+  "rawPurchaseAp": 0.5,
+  "eatAp": 3,
+  "cookedEatAp": 1,
+  "cookAp": 0.25,
+  "bagCapacity": 6,
+  "fridgeCapacity": 40,
+  "foods": [
+    {
+      "id": "meatballs",
+      "name": "ลูกชิ้นปิ้ง",
+      "locationId": "market",
+      "category": "อาหารพร้อมทาน",
+      "price": 40,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "pork_skewer",
+      "name": "หมูปิ้ง",
+      "locationId": "market",
+      "category": "อาหารพร้อมทาน",
+      "price": 40,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "krapao",
+      "name": "ผัดกะเพรา",
+      "locationId": "restaurant",
+      "category": "อาหารจานเดียว",
+      "price": 60,
+      "raw": false,
+      "effect": {
+        "health": 7,
+        "happiness": 3
+      },
+      "eatAp": 2.5
+    },
+    {
+      "id": "chicken_salad",
+      "name": "ข้าวยำไก่แซ่บ",
+      "locationId": "restaurant",
+      "category": "อาหารจานเดียว",
+      "price": 70,
+      "raw": false,
+      "effect": {
+        "health": 7,
+        "happiness": 3
+      },
+      "eatAp": 3
+    },
+    {
+      "id": "somtam",
+      "name": "ส้มตำ",
+      "locationId": "restaurant",
+      "category": "อาหารจานเดียว",
+      "price": 80,
+      "raw": false,
+      "effect": {
+        "health": 7,
+        "happiness": 3
+      },
+      "eatAp": 3.5
+    },
+    {
+      "id": "grass_jelly",
+      "name": "เฉาก๊วยนมสด",
+      "locationId": "market",
+      "category": "ขนมและของหวาน",
+      "price": 35,
+      "raw": false,
+      "effect": {
+        "health": 1,
+        "happiness": 6
+      }
+    },
+    {
+      "id": "khanom_chan",
+      "name": "ขนมชั้น",
+      "locationId": "market",
+      "category": "ขนมและของหวาน",
+      "price": 35,
+      "raw": false,
+      "effect": {
+        "health": 1,
+        "happiness": 6
+      }
+    },
+    {
+      "id": "foi_thong",
+      "name": "ฝอยทอง",
+      "locationId": "market",
+      "category": "ขนมและของหวาน",
+      "price": 35,
+      "raw": false,
+      "effect": {
+        "health": 1,
+        "happiness": 6
+      }
+    },
+    {
+      "id": "juice",
+      "name": "น้ำผลไม้",
+      "locationId": "market",
+      "category": "เครื่องดื่ม",
+      "price": 35,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "market_tea",
+      "name": "ชานม",
+      "locationId": "market",
+      "category": "เครื่องดื่ม",
+      "price": 35,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "market_coffee",
+      "name": "กาแฟ",
+      "locationId": "market",
+      "category": "เครื่องดื่ม",
+      "price": 35,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "raw_pork",
+      "name": "หมูสด",
+      "locationId": "market",
+      "category": "วัตถุดิบ",
+      "price": 30,
+      "raw": true,
+      "effect": {}
+    },
+    {
+      "id": "raw_chicken",
+      "name": "ไก่สด",
+      "locationId": "market",
+      "category": "วัตถุดิบ",
+      "price": 30,
+      "raw": true,
+      "effect": {}
+    },
+    {
+      "id": "raw_fish",
+      "name": "ปลา",
+      "locationId": "market",
+      "category": "วัตถุดิบ",
+      "price": 30,
+      "raw": true,
+      "effect": {}
+    },
+    {
+      "id": "vegetables",
+      "name": "ชุดผักสวนครัว",
+      "locationId": "market",
+      "category": "วัตถุดิบ",
+      "price": 30,
+      "raw": true,
+      "effect": {}
+    },
+    {
+      "id": "fruit",
+      "name": "ผลไม้ตามฤดูกาล",
+      "locationId": "market",
+      "category": "วัตถุดิบ",
+      "price": 30,
+      "raw": true,
+      "effect": {}
+    },
+    {
+      "id": "sandwich",
+      "name": "แซนวิชอบร้อน",
+      "locationId": "convenience",
+      "category": "ของกินเล่นและฟาสต์ฟู้ด",
+      "price": 45,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "burger",
+      "name": "เบอร์เกอร์",
+      "locationId": "convenience",
+      "category": "ของกินเล่นและฟาสต์ฟู้ด",
+      "price": 45,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "sausage",
+      "name": "ไส้กรอก",
+      "locationId": "convenience",
+      "category": "ของกินเล่นและฟาสต์ฟู้ด",
+      "price": 45,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "bun",
+      "name": "ซาลาเปา",
+      "locationId": "convenience",
+      "category": "ของกินเล่นและฟาสต์ฟู้ด",
+      "price": 45,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 3
+      }
+    },
+    {
+      "id": "boxed_krapao",
+      "name": "ข้าวผัดกะเพรา",
+      "locationId": "convenience",
+      "category": "ข้าวกล่องและอาหารแช่แข็ง",
+      "price": 55,
+      "raw": false,
+      "effect": {
+        "health": 6,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "fried_rice",
+      "name": "ข้าวผัด",
+      "locationId": "convenience",
+      "category": "ข้าวกล่องและอาหารแช่แข็ง",
+      "price": 55,
+      "raw": false,
+      "effect": {
+        "health": 6,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "chicken_rice",
+      "name": "ข้าวมันไก่",
+      "locationId": "convenience",
+      "category": "ข้าวกล่องและอาหารแช่แข็ง",
+      "price": 55,
+      "raw": false,
+      "effect": {
+        "health": 6,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "noodles",
+      "name": "บะหมี่สำเร็จรูป",
+      "locationId": "convenience",
+      "category": "ข้าวกล่องและอาหารแช่แข็ง",
+      "price": 55,
+      "raw": false,
+      "effect": {
+        "health": 6,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "milk",
+      "name": "นม",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มแช่เย็น",
+      "price": 25,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "water",
+      "name": "น้ำเปล่า",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มแช่เย็น",
+      "price": 25,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "soda",
+      "name": "น้ำอัดลม",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มแช่เย็น",
+      "price": 25,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "green_tea",
+      "name": "ชาเขียว",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มแช่เย็น",
+      "price": 25,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "milk_tea",
+      "name": "ชานม",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มแช่เย็น",
+      "price": 25,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "canned_coffee",
+      "name": "กาแฟพร้อมดื่ม",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มแช่เย็น",
+      "price": 25,
+      "raw": false,
+      "effect": {
+        "health": 2,
+        "happiness": 2
+      }
+    },
+    {
+      "id": "fresh_coffee",
+      "name": "กาแฟสด",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มชงสด",
+      "price": 50,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 5
+      }
+    },
+    {
+      "id": "thai_tea",
+      "name": "ชาเย็น",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มชงสด",
+      "price": 50,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 5
+      }
+    },
+    {
+      "id": "chocolate",
+      "name": "ช็อกโกแลต",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มชงสด",
+      "price": 50,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 5
+      }
+    },
+    {
+      "id": "smoothie",
+      "name": "สมูทตี้",
+      "locationId": "convenience",
+      "category": "เครื่องดื่มชงสด",
+      "price": 50,
+      "raw": false,
+      "effect": {
+        "health": 3,
+        "happiness": 5
+      }
+    }
+  ],
+  "items": [
+    {
+      "id": "fridge",
+      "name": "ตู้เย็น",
+      "category": "เครื่องใช้ไฟฟ้า",
+      "price": 1500,
+      "apCost": 1,
+      "effect": {}
+    },
+    {
+      "id": "microwave",
+      "name": "ไมโครเวฟ",
+      "category": "เครื่องใช้ไฟฟ้า",
+      "price": 900,
+      "apCost": 1,
+      "effect": {}
+    },
+    {
+      "id": "kitchen_set",
+      "name": "ชุดเครื่องครัว",
+      "category": "เครื่องใช้ไฟฟ้า",
+      "price": 600,
+      "apCost": 1,
+      "effect": {}
+    },
+    {
+      "id": "comfy_shirt",
+      "name": "เสื้อใส่สบาย",
+      "category": "เครื่องนุ่งห่ม",
+      "price": 300,
+      "apCost": 1,
+      "effect": {
+        "happiness": 3
+      }
+    }
+  ],
+  "faculties": [
+    {
+      "id": "business",
+      "name": "Business"
+    },
+    {
+      "id": "engineering",
+      "name": "Engineering"
+    },
+    {
+      "id": "medical",
+      "name": "Medical"
+    },
+    {
+      "id": "liberal_arts",
+      "name": "Liberal Arts"
+    }
+  ],
+  "degrees": {
+    "bachelor": {
+      "credits": 24,
+      "tuition": 100
+    },
+    "master": {
+      "credits": 32,
+      "tuition": 160
+    },
+    "doctorate": {
+      "credits": 40,
+      "tuition": 250
+    }
+  },
+  "recipes": [
+    {
+      "id": "cooked_pork",
+      "name": "หมูผัดผัก",
+      "ingredients": {
+        "raw_pork": 1,
+        "vegetables": 1
+      },
+      "equipment": [
+        "kitchen_set"
+      ],
+      "effect": {
+        "health": 8,
+        "happiness": 4
+      },
+      "cooked": true,
+      "portions": 2
+    },
+    {
+      "id": "cooked_chicken",
+      "name": "ไก่อบไมโครเวฟ",
+      "ingredients": {
+        "raw_chicken": 1,
+        "vegetables": 1
+      },
+      "equipment": [
+        "microwave"
+      ],
+      "effect": {
+        "health": 8,
+        "happiness": 3
+      },
+      "cooked": true,
+      "portions": 2
+    },
+    {
+      "id": "cooked_fish",
+      "name": "ปลานึ่ง",
+      "ingredients": {
+        "raw_fish": 1,
+        "vegetables": 1
+      },
+      "equipment": [
+        "kitchen_set"
+      ],
+      "effect": {
+        "health": 10,
+        "happiness": 2
+      },
+      "cooked": true,
+      "portions": 2
+    },
+    {
+      "id": "cooked_fruit",
+      "name": "สลัดผลไม้เย็น",
+      "ingredients": {
+        "fruit": 1
+      },
+      "equipment": [
+        "fridge"
+      ],
+      "effect": {
+        "health": 6,
+        "happiness": 5
+      },
+      "cooked": true,
+      "portions": 2
+    }
+  ]
+}

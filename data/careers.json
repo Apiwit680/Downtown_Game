@@ -1,0 +1,787 @@
+[
+  {
+    "id": "hospital_assistant",
+    "name": "ผู้ช่วยงานโรงพยาบาล",
+    "kind": "main",
+    "locationId": "hospital",
+    "requiredEducation": "vocational",
+    "requiredExperience": 0,
+    "pay": 435,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 5800,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 435,
+      "weekend": 239
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "hospital_nurse",
+    "name": "พยาบาลประจำแผนก",
+    "kind": "main",
+    "locationId": "hospital",
+    "requiredEducation": "bachelor",
+    "requiredExperience": 9,
+    "pay": 765,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 10200,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 765,
+      "weekend": 421
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45,
+    "requiredFaculty": "medical"
+  },
+  {
+    "id": "mall_sales",
+    "name": "พนักงานขายห้าง",
+    "kind": "main",
+    "locationId": "mall",
+    "requiredEducation": "vocational",
+    "requiredExperience": 0,
+    "pay": 413,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 5500,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 413,
+      "weekend": 227
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "mall_manager",
+    "name": "ผู้จัดการแผนกห้าง",
+    "kind": "main",
+    "locationId": "mall",
+    "requiredEducation": "bachelor",
+    "requiredExperience": 12,
+    "pay": 788,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 10500,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 788,
+      "weekend": 433
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45,
+    "requiredFaculty": "business"
+  },
+  {
+    "id": "fitness_reception",
+    "name": "เจ้าหน้าที่ต้อนรับฟิตเนส",
+    "kind": "main",
+    "locationId": "fitness",
+    "requiredEducation": "vocational",
+    "requiredExperience": 0,
+    "pay": 405,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 5400,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 405,
+      "weekend": 223
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "fitness_trainer",
+    "name": "ผู้ฝึกสอนฟิตเนส",
+    "kind": "main",
+    "locationId": "fitness",
+    "requiredEducation": "diploma",
+    "requiredExperience": 6,
+    "pay": 585,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 7800,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 585,
+      "weekend": 322
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "bank_teller",
+    "name": "เจ้าหน้าที่บริการธนาคาร",
+    "kind": "main",
+    "locationId": "bank",
+    "requiredEducation": "diploma",
+    "requiredExperience": 0,
+    "pay": 578,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 7700,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 578,
+      "weekend": 318
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "bank_analyst",
+    "name": "นักวิเคราะห์การเงิน",
+    "kind": "main",
+    "locationId": "bank",
+    "requiredEducation": "bachelor",
+    "requiredExperience": 12,
+    "pay": 855,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 11400,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 855,
+      "weekend": 470
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45,
+    "requiredFaculty": "business"
+  },
+  {
+    "id": "school_admin",
+    "name": "เจ้าหน้าที่ธุรการโรงเรียน",
+    "kind": "main",
+    "locationId": "school",
+    "requiredEducation": "vocational",
+    "requiredExperience": 0,
+    "pay": 420,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 5600,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 420,
+      "weekend": 231
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "school_teacher",
+    "name": "ครูประจำวิชา",
+    "kind": "main",
+    "locationId": "school",
+    "requiredEducation": "bachelor",
+    "requiredExperience": 6,
+    "pay": 795,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 10600,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 795,
+      "weekend": 437
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45,
+    "requiredFaculty": "liberal_arts"
+  },
+  {
+    "id": "university_coordinator",
+    "name": "ผู้ประสานงานมหาวิทยาลัย",
+    "kind": "main",
+    "locationId": "university",
+    "requiredEducation": "bachelor",
+    "requiredExperience": 6,
+    "pay": 788,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 10500,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 788,
+      "weekend": 433
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45,
+    "requiredFaculty": "liberal_arts"
+  },
+  {
+    "id": "auto_mechanic",
+    "name": "ช่างเทคนิคยานยนต์",
+    "kind": "main",
+    "locationId": "automotive",
+    "requiredEducation": "vocational",
+    "requiredExperience": 0,
+    "pay": 495,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 6600,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 495,
+      "weekend": 272
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "auto_senior",
+    "name": "ช่างเทคนิคอาวุโส",
+    "kind": "main",
+    "locationId": "automotive",
+    "requiredEducation": "diploma",
+    "requiredExperience": 9,
+    "pay": 653,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 8700,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 653,
+      "weekend": 359
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "auto_engineer",
+    "name": "วิศวกรยานยนต์",
+    "kind": "main",
+    "locationId": "automotive",
+    "requiredEducation": "bachelor",
+    "requiredExperience": 12,
+    "pay": 855,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 11400,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 855,
+      "weekend": 470
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45,
+    "requiredFaculty": "engineering"
+  },
+  {
+    "id": "restaurant_manager",
+    "name": "ผู้จัดการร้านอาหาร",
+    "kind": "main",
+    "locationId": "restaurant",
+    "requiredEducation": "vocational",
+    "requiredExperience": 6,
+    "pay": 450,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 6000,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 450,
+      "weekend": 248
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "market_logistics",
+    "name": "ผู้ดูแลสต็อกตลาด",
+    "kind": "main",
+    "locationId": "market",
+    "requiredEducation": "vocational",
+    "requiredExperience": 0,
+    "pay": 435,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 5800,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 435,
+      "weekend": 239
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "casino_cashier",
+    "name": "เจ้าหน้าที่การเงินกาสิโน",
+    "kind": "main",
+    "locationId": "casino",
+    "requiredEducation": "diploma",
+    "requiredExperience": 6,
+    "pay": 615,
+    "apCost": 1,
+    "xpGain": 0.38,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 8200,
+      "apCost": 8,
+      "xpGain": 3
+    },
+    "payByPhase": {
+      "workday": 615,
+      "weekend": 338
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "hospital_porter",
+    "name": "ผู้ช่วยขนเวชภัณฑ์",
+    "kind": "parttime",
+    "locationId": "hospital",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 192,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1600,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 192,
+      "weekend": 106
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "mall_stock",
+    "name": "ผู้จัดเรียงสินค้า",
+    "kind": "parttime",
+    "locationId": "mall",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 192,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1600,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 192,
+      "weekend": 106
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "fitness_cleaner",
+    "name": "ผู้ดูแลอุปกรณ์ฟิตเนส",
+    "kind": "parttime",
+    "locationId": "fitness",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 168,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1400,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 168,
+      "weekend": 92
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "bank_promoter",
+    "name": "ผู้ช่วยประชาสัมพันธ์ธนาคาร",
+    "kind": "parttime",
+    "locationId": "bank",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 192,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1600,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 192,
+      "weekend": 106
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "school_helper",
+    "name": "ผู้ช่วยงานโรงเรียน",
+    "kind": "parttime",
+    "locationId": "school",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 180,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1500,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 180,
+      "weekend": 99
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "university_helper",
+    "name": "ผู้ช่วยกิจกรรมมหาวิทยาลัย",
+    "kind": "parttime",
+    "locationId": "university",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 192,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1600,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 192,
+      "weekend": 106
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "auto_wash",
+    "name": "ผู้ช่วยล้างและตรวจรถ",
+    "kind": "parttime",
+    "locationId": "automotive",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 204,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1700,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 204,
+      "weekend": 112
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "market_stall",
+    "name": "ผู้ช่วยร้านค้าตลาด",
+    "kind": "parttime",
+    "locationId": "market",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 180,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1500,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 180,
+      "weekend": 99
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "convenience_cashier",
+    "name": "แคชเชียร์เซเว่น",
+    "kind": "parttime",
+    "locationId": "convenience",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 168,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1400,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 168,
+      "weekend": 92
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "restaurant_dishwasher",
+    "name": "ผู้ช่วยล้างจาน",
+    "kind": "parttime",
+    "locationId": "restaurant",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 168,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1400,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 168,
+      "weekend": 92
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "ticket_usher",
+    "name": "ผู้ช่วยกิจกรรมพักผ่อน",
+    "kind": "parttime",
+    "locationId": "ticket_venue",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 180,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1500,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 180,
+      "weekend": 99
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "hangout_server",
+    "name": "พนักงานร้าน Hang out",
+    "kind": "parttime",
+    "locationId": "hangout",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 216,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1800,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 216,
+      "weekend": 119
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  },
+  {
+    "id": "casino_floor",
+    "name": "ผู้ช่วยดูแลพื้นที่กาสิโน",
+    "kind": "parttime",
+    "locationId": "casino",
+    "requiredEducation": "m3",
+    "requiredExperience": 0,
+    "pay": 192,
+    "apCost": 1,
+    "xpGain": 0.2,
+    "workPhases": [
+      "workday",
+      "weekend"
+    ],
+    "originalShift": {
+      "pay": 1600,
+      "apCost": 5,
+      "xpGain": 1
+    },
+    "payByPhase": {
+      "workday": 192,
+      "weekend": 106
+    },
+    "healthDrain": 0.6,
+    "happinessDrain": 0.45
+  }
+]

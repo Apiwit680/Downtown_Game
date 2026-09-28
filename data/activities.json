@@ -1,0 +1,16 @@
+[
+  { "id": "recreation_hike", "name": "เดินป่ารอบเมือง", "locationId": "ticket_venue", "price": 750, "apCost": 7, "effect": { "health": 8, "happiness": 6 } },
+  { "id": "recreation_park_music", "name": "ฟังดนตรีในสวน", "locationId": "ticket_venue", "price": 420, "apCost": 4, "effect": { "happiness": 8, "health": 1 } },
+  { "id": "recreation_cinema", "name": "ดูหนัง", "locationId": "ticket_venue", "price": 350, "apCost": 4, "effect": { "happiness": 7 } },
+  { "id": "recreation_museum", "name": "ชมนิทรรศการเมือง", "locationId": "ticket_venue", "price": 320, "apCost": 4, "effect": { "knowledge": 4, "happiness": 4 } },
+  { "id": "recreation_picnic", "name": "ปิกนิกยามบ่าย", "locationId": "ticket_venue", "price": 230, "apCost": 3, "effect": { "happiness": 5, "health": 2 } },
+  { "id": "recreation_river", "name": "ล่องเรือชมเมือง", "locationId": "ticket_venue", "price": 1100, "apCost": 6, "effect": { "happiness": 10, "health": 2 } },
+  { "id": "hangout_live_music", "name": "นั่งฟังดนตรีที่ Hang out", "locationId": "hangout", "price": 480, "apCost": 4, "effect": { "happiness": 7 } },
+  { "id": "hangout_board_games", "name": "เล่นบอร์ดเกมกับเพื่อน", "locationId": "hangout", "price": 320, "apCost": 3, "effect": { "happiness": 6, "knowledge": 1 } },
+  { "id": "market_fresh_meal", "name": "อาหารสดจากตลาด", "category": "meal", "locationId": "market", "price": 220, "apCost": 3, "effect": { "health": 5, "happiness": 1 } },
+  { "id": "convenience_fast_food", "name": "อาหารจานด่วนเซเว่น", "category": "meal", "locationId": "convenience", "price": 120, "apCost": 3, "effect": { "health": -2, "happiness": 2 } },
+  { "id": "restaurant_healthy_meal", "name": "อาหารสุขภาพที่ร้าน", "category": "meal", "locationId": "restaurant", "price": 460, "apCost": 3, "effect": { "health": 7, "happiness": 4 } },
+  { "id": "fitness_session", "name": "ออกกำลังที่ฟิตเนส", "locationId": "fitness", "price": 250, "apCost": 4, "effect": { "health": 8, "happiness": 2 } },
+  { "id": "hospital_checkup", "name": "ตรวจและรักษาที่โรงพยาบาล", "locationId": "hospital", "price": 1650, "apCost": 5, "effect": { "health": 16, "happiness": -1 } },
+  { "id": "mall_clothes", "name": "ซื้อเสื้อผ้าแฟชั่น", "locationId": "mall", "price": 900, "apCost": 3, "effect": { "happiness": 5 } }
+]

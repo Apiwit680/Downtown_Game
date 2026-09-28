@@ -1,0 +1,24 @@
+{
+  "ok": true,
+  "checks": [
+    "2 players create/join/start",
+    "random starter fixture",
+    "5-card opening deal",
+    "52-card shared Season deck",
+    "18 venues no Log",
+    "5 transport previews",
+    "taxi travel",
+    "bank borrow",
+    "Skill discard/draw lock",
+    "home-only sleep scene",
+    "Phase 2/2 prepares Weekend refill",
+    "1280 and mobile layout",
+    "resume/tab replacement",
+    "all venues clickable with folded and expanded hand",
+    "state update during travel",
+    "reduced-motion travel with no animations",
+    "winning action scene before results"
+  ],
+  "browserErrors": [],
+  "artifacts": "C:\\Users\\User\\AppData\\Local\\Temp\\downtown-ui-smoke-1790530015085"
+}

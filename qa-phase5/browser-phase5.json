@@ -1,0 +1,18 @@
+{
+  "ok": true,
+  "checks": [
+    "1,4: school track/study persists through graduation; book particles, progress and explicit close only",
+    "2: Vocational Engineering-only UI and half-time Bachelor completion",
+    "3,6: repeat Working persists with tools/papers/coins burst; offer shows both pay rates",
+    "13: both job slots resign at their workplace and pay severance once",
+    "14: actual input repays 1000 + 717 and full 2501 without artificial cap",
+    "7,8: connected center Condominium; restaurant-only meals show individual prices/AP",
+    "11: without fridge immediate eating; owned fridge offers eat or store",
+    "12: next-phase hunger AP deduction and visible reason; home panel stays open",
+    "5,9: used car card purchase; enlarged rectangular card popup remains until close",
+    "10: actual money-loss travel event presents center rectangle above activity panel",
+    "4,9: bounded mobile activity/popup sizing, no overflow and reconnect preserves ownership"
+  ],
+  "browserErrors": [],
+  "fixtures": "Isolated server: credentials, inventory/cash/location and deterministic event setup; real browser clicks and server assertions. Human fun/balance approval pending."
+}
